@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>成理核自学生会 · 办事通</title>
+    <style>
+        :root {
+            --primary: #1a6fb5;
+            --primary-dark: #14578a;
+            --bg: #f5f7fa;
+            --card-bg: #ffffff;
+            --text: #2c3e50;
+            --text-secondary: #666666;
+            --border: #e8ecf1;
+            --shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            --accent-green: #27ae60;
+            --accent-orange: #e67e22;
+            --accent-purple: #8e44ad;
+            --accent-red: #c0392b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ========== 头部 ========== */
+        .header {
+            background: linear-gradient(135deg, #1a6fb5 0%, #155d96 50%, #0f4c7d 100%);
+            padding: 20px 20px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: var(--bg);
+            border-radius: 50% 50% 0 0;
+        }
+
+        .header-top {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-title {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .header-subtitle {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 13px;
+            font-weight: 400;
+        }
+
+        /* 搜索框 */
+        .search-box {
+            position: relative;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 28px;
+            padding: 12px 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+        }
+        .search-box .search-icon {
+            font-size: 18px;
+            color: #999;
+            flex-shrink: 0;
+        }
+        .search-box input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 15px;
+            background: transparent;
+            color: var(--text);
+        }
+        .search-box input::placeholder {
+            color: #b0b8c1;
+        }
+        .search-clear {
+            display: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #ddd;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+            color: #666;
+            flex-shrink: 0;
+            align-items: center;
+            justify-content: center;
+        }
+        .search-clear.visible {
+            display: flex;
+        }
+
+        /* ========== 主容器 ========== */
+        .container {
+            padding: 0 16px 40px;
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            margin-top: -10px;
+        }
+
+        /* ========== 分类标题 ========== */
+        .section-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text);
+            margin: 24px 0 14px 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-title .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: inline-block;
+        }
+
+        /* ========== 卡片网格 ========== */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .card-grid.single-col {
+            grid-template-columns: 1fr;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 18px 16px;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            border: 1.5px solid transparent;
+            position: relative;
+            overflow: hidden;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+        .card:active {
+            transform: scale(0.97);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.14);
+        }
+        .card.active-card {
+            border-color: var(--primary);
+            background: #f8fafe;
+        }
+
+        .card-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+        .icon-blue {
+            background: #e8f4fd;
+            color: #1a6fb5;
+        }
+        .icon-green {
+            background: #e8f8f0;
+            color: #27ae60;
+        }
+        .icon-orange {
+            background: #fef5ec;
+            color: #e67e22;
+        }
+        .icon-purple {
+            background: #f4ecf8;
+            color: #8e44ad;
+        }
+        .icon-red {
+            background: #fdedec;
+            color: #c0392b;
+        }
+        .icon-teal {
+            background: #e8f8f5;
+            color: #16a085;
+        }
+
+        .card h3 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--text);
+        }
+        .card p {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        /* ========== 详情面板 ========== */
+        .detail-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            display: none;
+            animation: fadeIn 0.25s ease;
+        }
+        .detail-overlay.show {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .detail-panel {
+            background: #ffffff;
+            border-radius: 20px 20px 0 0;
+            width: 100%;
+            max-width: 500px;
+            max-height: 82vh;
+            overflow-y: auto;
+            padding: 20px 20px 36px;
+            animation: slideUp 0.3s ease;
+            box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.15);
+        }
+        .detail-handle {
+            width: 40px;
+            height: 5px;
+            background: #ddd;
+            border-radius: 3px;
+            margin: 0 auto 20px;
+        }
+        .detail-panel h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .detail-panel .detail-category {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .detail-body {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #444;
+        }
+        .detail-body .step {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            border-left: 4px solid var(--primary);
+        }
+        .detail-body .step .step-num {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 13px;
+            display: inline-block;
+            width: 20px;
+        }
+        .detail-body .highlight-box {
+            background: #fff9e6;
+            border-radius: 10px;
+            padding: 12px 14px;
+            margin: 12px 0;
+            border: 1px solid #f0d77b;
+            font-size: 13px;
+        }
+        .detail-body a {
+            color: var(--primary);
+            text-decoration: underline;
+            word-break: break-all;
+        }
+        .detail-close {
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+            padding: 14px;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 28px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .detail-close:active {
+            background: var(--primary-dark);
+        }
+
+        /* ========== 底部信息 ========== */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #b0b8c1;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        /* ========== 空搜索结果 ========== */
+        .no-result {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+            display: none;
+        }
+        .no-result .emoji {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        /* ========== 动画 ========== */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== 头部 ==================== -->
+    <div class="header">
+        <div class="header-top">
+            <div class="logo-icon">⚛️</div>
+            <div>
+                <div class="header-title">核自学生会 · 办事通</div>
+                <div class="header-subtitle">成都理工大学 · 校园生活指南</div>
+            </div>
+        </div>
+        <!-- 搜索框 -->
+        <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" placeholder="搜索你关心的问题，如：在读证明、医保、报修...">
+            <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
+        </div>
+    </div>
+
+    <!-- ==================== 主内容区 ==================== -->
+    <div class="container" id="cardContainer">
+
+        <!-- 学业证明 -->
+        <div class="section-title"><span class="dot"></span> 学业证明</div>
+        <div class="card-grid" data-category="学业证明">
+            <div class="card" data-id="zaidu" onclick="openDetail('zaidu')">
+                <div class="card-icon icon-blue">📄</div>
+                <h3>在读证明</h3>
+                <p>可信认证平台下载</p>
+            </div>
+            <div class="card" data-id="chengji" onclick="openDetail('chengji')">
+                <div class="card-icon icon-blue">📊</div>
+                <h3>成绩单打印</h3>
+                <p>中英文成绩单获取</p>
+            </div>
+            <div class="card" data-id="cet" onclick="openDetail('cet')">
+                <div class="card-icon icon-blue">🏅</div>
+                <h3>四六级证明</h3>
+                <p>绩点证明/学历学位</p>
+            </div>
+            <div class="card" data-id="caozuo" onclick="openDetail('caozuo')">
+                <div class="card-icon icon-teal">📋</div>
+                <h3>操作指引</h3>
+                <p>详细步骤图文指南</p>
+            </div>
+        </div>
+
+        <!-- 生活服务 -->
+        <div class="section-title"><span class="dot"></span> 生活服务</div>
+        <div class="card-grid" data-category="生活服务">
+            <div class="card" data-id="baoxiu" onclick="openDetail('baoxiu')">
+                <div class="card-icon icon-orange">🔧</div>
+                <h3>宿舍报修</h3>
+                <p>灯管/水龙头等维修</p>
+            </div>
+            <div class="card" data-id="chongdian" onclick="openDetail('chongdian')">
+                <div class="card-icon icon-orange">💡</div>
+                <h3>电费充值</h3>
+                <p>宿舍购电操作流程</p>
+            </div>
+            <div class="card" data-id="xiaoyuanka" onclick="openDetail('xiaoyuanka')">
+                <div class="card-icon icon-orange">💳</div>
+                <h3>校园卡服务</h3>
+                <p>挂失/充值/余额查询</p>
+            </div>
+            <div class="card" data-id="wangluo" onclick="openDetail('wangluo')">
+                <div class="card-icon icon-purple">🌐</div>
+                <h3>校园网办理</h3>
+                <p>开户与充值指南</p>
+            </div>
+        </div>
+
+        <!-- 财务医保 -->
+        <div class="section-title"><span class="dot"></span> 财务与医保</div>
+        <div class="card-grid" data-category="财务医保">
+            <div class="card" data-id="bangka" onclick="openDetail('bangka')">
+                <div class="card-icon icon-green">🏦</div>
+                <h3>银行卡绑定</h3>
+                <p>奖助学金发放卡绑定</p>
+            </div>
+            <div class="card" data-id="yibao" onclick="openDetail('yibao')">
+                <div class="card-icon icon-red">🏥</div>
+                <h3>医保购买</h3>
+                <p>成都税务缴费全流程</p>
+            </div>
+        </div>
+
+        <!-- 空结果提示 -->
+        <div class="no-result" id="noResult">
+            <div class="emoji">🔍</div>
+            <p>未找到相关内容</p>
+            <p style="font-size:12px;margin-top:4px;">试试其他关键词，如：证明、维修、医保</p>
+        </div>
+    </div>
+
+    <!-- 底部 -->
+    <div class="footer">
+        成都理工大学 核技术与自动化工程学院 学生会 · 持续更新中
+    </div>
+
+    <!-- ==================== 详情弹窗 ==================== -->
+    <div class="detail-overlay" id="detailOverlay" onclick="closeDetail(event)">
+        <div class="detail-panel" id="detailPanel" onclick="event.stopPropagation()">
+            <div class="detail-handle"></div>
+            <div id="detailContent"></div>
+            <button class="detail-close" onclick="closeDetailDirect()">关 闭</button>
+        </div>
+    </div>
+
+    <script>
+        // ==================== 数据定义 ====================
+        const cardData = {
+            zaidu: {
+                title: '在读证明',
+                category: '学业证明',
+                body: `
+              <p>通过<strong>可信认证电子平台</strong>，可在线下载带电子签章的在读证明，与纸质版同等效力。</p>
+              <div class="step"><span class="step-num">①</span> 访问教务处主页：<a href="https://aao.cdut.edu.cn" target="_blank">aao.cdut.edu.cn</a></div>
+              <div class="step"><span class="step-num">②</span> 点击“办事指南” → 《本科生可信电子证明申请操作指引》</div>
+              <div class="step"><span class="step-num">③</span> 按指引登录平台，选择“在读证明”并下载PDF</div>
+              <div class="highlight-box">📌 电子证明含防伪验证码，支持在线真伪核验。</div>
+              <p>直达链接：<br><a href="https://aao.cdut.edu.cn/info/1187/6960.htm" target="_blank">aao.cdut.edu.cn/info/1187/6960.htm</a></p>
+            `
+            },
+            chengji: {
+                title: '成绩单打印',
+                category: '学业证明',
+                body: `
+              <p>可信认证平台支持<strong>中英文成绩单</strong>在线生成与下载。</p>
+              <div class="step"><span class="step-num">①</span> 登录可信认证平台（同在读证明入口）</div>
+              <div class="step"><span class="step-num">②</span> 选择“中文成绩单”或“英文成绩单”</div>
+              <div class="step"><span class="step-num">③</span> 确认信息无误后，下载PDF文件</div>
+              <div class="highlight-box">💡 如需纸质版，可自行打印，电子签章同样有效。</div>
+            `
+            },
+            cet: {
+                title: '四六级证明 / 绩点证明 / 学历学位',
+                category: '学业证明',
+                body: `
+              <p>以下证明均可在<strong>可信认证平台</strong>一站式办理：</p>
+              <ul style="padding-left:18px;margin:8px 0;">
+                <li>四六级成绩证明</li>
+                <li>绩点证明</li>
+                <li>学历学位证明（已毕业学生）</li>
+              </ul>
+              <div class="step"><span class="step-num">①</span> 登录平台，选择对应证明类型</div>
+              <div class="step"><span class="step-num">②</span> 系统自动生成带电子签章的证明文件</div>
+              <div class="highlight-box">📌 所有电子证明均免费办理。</div>
+            `
+            },
+            caozuo: {
+                title: '完整操作指引',
+                category: '学业证明',
+                body: `
+              <p>详细图文步骤请访问教务处主页：</p>
+              <p>🏠 教务处主页：<a href="https://aao.cdut.edu.cn" target="_blank">aao.cdut.edu.cn</a></p>
+              <p>📖 操作指引直达：<a href="https://aao.cdut.edu.cn/info/1187/6960.htm" target="_blank">点击查看详细操作指南</a></p>
+              <div class="highlight-box">💡 推荐使用电脑端操作，体验更佳。手机端也可完成。</div>
+            `
+            },
+            baoxiu: {
+                title: '宿舍报修',
+                category: '生活服务',
+                body: `
+              <p>宿舍设施损坏（灯管、水龙头、门窗等），通过<strong>砚湖易办</strong>网上报修。</p>
+              <div class="step"><span class="step-num">①</span> 访问砚湖易办：<a href="https://wxc.cdut.edu.cn/index.htm" target="_blank">wxc.cdut.edu.cn</a></div>
+              <div class="step"><span class="step-num">②</span> 登录后搜索“报修”服务</div>
+              <div class="step"><span class="step-num">③</span> 填写报修信息：校区→楼栋→房间号→故障描述→上传照片</div>
+              <div class="step"><span class="step-num">④</span> 提交后等待维修师傅联系上门</div>
+              <div class="highlight-box">📞 紧急报修可联系各宿舍楼值班室。</div>
+            `
+            },
+            chongdian: {
+                title: '电费充值',
+                category: '生活服务',
+                body: `
+              <p>宿舍电费通过<strong>砚湖易办</strong>在线充值。</p>
+              <div class="step"><span class="step-num">①</span> 登录砚湖易办</div>
+              <div class="step"><span class="step-num">②</span> 找到“电费充值”服务入口</div>
+              <div class="step"><span class="step-num">③</span> 选择对应校区→楼栋→房间号</div>
+              <div class="step"><span class="step-num">④</span> 输入充值金额，完成支付</div>
+              <div class="highlight-box">⚡ 建议预留余额，避免夜间断电。充值后一般5分钟内到账。</div>
+            `
+            },
+            xiaoyuanka: {
+                title: '校园卡服务',
+                category: '生活服务',
+                body: `
+              <p>校园卡挂失、余额查询可在砚湖易办办理；充值推荐使用<strong>支付宝</strong>或<strong>完美校园APP</strong>。</p>
+              <div class="step"><span class="step-num">①</span> 挂失：砚湖易办 → 搜索“校园卡挂失”</div>
+              <div class="step"><span class="step-num">②</span> 充值：支付宝搜索“完美校园” → 绑定校园卡 → 充值</div>
+              <div class="step"><span class="step-num">③</span> 余额查询：砚湖易办或完美校园APP均可查询</div>
+              <div class="highlight-box">🆘 如捡到他人校园卡，请交至各食堂服务台或保卫处。</div>
+            `
+            },
+            wangluo: {
+                title: '校园网办理',
+                category: '生活服务',
+                body: `
+              <p>校园网开户与充值通过<strong>砚湖易办</strong>办理。</p>
+              <div class="step"><span class="step-num">①</span> 登录砚湖易办</div>
+              <div class="step"><span class="step-num">②</span> 搜索“校园网”相关服务</div>
+              <div class="step"><span class="step-num">③</span> 按指引完成开户/充值</div>
+              <div class="highlight-box">📶 校园网覆盖教学区、图书馆及大部分宿舍区域。</div>
+            `
+            },
+            bangka: {
+                title: '银行卡绑定',
+                category: '财务与医保',
+                body: `
+              <p>奖助学金、勤工助学工资均通过绑定的<strong>中国建设银行卡</strong>发放。</p>
+              <div class="step"><span class="step-num">①</span> 登录砚湖易办网上办事大厅</div>
+              <div class="step"><span class="step-num">②</span> 搜索“银行卡信息变更”或“财务信息维护”</div>
+              <div class="step"><span class="step-num">③</span> 填写本人名下状态正常的建行卡号并提交</div>
+              <div class="highlight-box">⚠️ 若建行卡丢失，请先去<strong>任意建行网点</strong>补办，再回系统更新卡号。如有疑问可咨询财务处。</div>
+            `
+            },
+            yibao: {
+                title: '学生医保购买',
+                category: '财务与医保',
+                body: `
+              <p>如学校未统一代扣，可通过<strong>成都税务公众号</strong>自行购买。</p>
+              <div class="step"><span class="step-num">①</span> 微信搜索并关注公众号 <strong>“成都税务”</strong></div>
+              <div class="step"><span class="step-num">②</span> 点击底部菜单：<strong>我要办事</strong> → <strong>社保缴费</strong></div>
+              <div class="step"><span class="step-num">③</span> 选择缴费渠道（推荐<strong>成都农商银行</strong>，支持无卡支付）</div>
+              <div class="step"><span class="step-num">④</span> 输入个人信息，确认缴费年度为<strong>2026年</strong></div>
+              <div class="step"><span class="step-num">⑤</span> 选择缴费档次，向<strong>成华区税务局</strong>缴纳：<br>· 基本档：<strong>400元/年</strong><br>· 较高档：<strong>448元/年</strong></div>
+              <div class="highlight-box">
+                ⏰ <strong>生效时间：</strong>缴费之日起<strong>90天后生效</strong><br>
+                📅 <strong>有效期至：</strong>2026年12月31日<br>
+                ⚠️ <strong>务必提前购买！</strong>留足90天等待期，避免急需时无法使用。
+              </div>
+              <p style="font-size:12px;color:#999;">如已在老家参保，无需重复购买，但需办理异地就医备案才能在成都直接结算。</p>
+            `
+            }
+        };
+
+        // ==================== 打开详情弹窗 ====================
+        function openDetail(id) {
+            const data = cardData[id];
+            if (!data) return;
+
+            const detailContent = document.getElementById('detailContent');
+            detailContent.innerHTML = `
+            <h2>${data.title}</h2>
+            <div class="detail-category">${data.category}</div>
+            <div class="detail-body">${data.body}</div>
+          `;
+
+            const overlay = document.getElementById('detailOverlay');
+            overlay.classList.add('show');
+            document.body.style.overflow = 'hidden';
+
+            // 滚动到顶部
+            document.getElementById('detailPanel').scrollTop = 0;
+        }
+
+        // ==================== 关闭弹窗 ====================
+        function closeDetailDirect() {
+            const overlay = document.getElementById('detailOverlay');
+            overlay.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        function closeDetail(event) {
+            if (event.target === document.getElementById('detailOverlay')) {
+                closeDetailDirect();
+            }
+        }
+
+        // ==================== 搜索功能 ====================
+        const searchInput = document.getElementById('searchInput');
+        const searchClear = document.getElementById('searchClear');
+        const cardContainer = document.getElementById('cardContainer');
+        const noResult = document.getElementById('noResult');
+
+        // 搜索关键词映射
+        const keywordMap = {
+            '在读证明': 'zaidu',
+            '证明': ['zaidu', 'chengji', 'cet', 'caozuo'],
+            '成绩单': 'chengji',
+            '中英文': 'chengji',
+            '四六级': 'cet',
+            '六级': 'cet',
+            '四级': 'cet',
+            '绩点': 'cet',
+            '学历': 'cet',
+            '学位': 'cet',
+            '操作指引': 'caozuo',
+            '指引': 'caozuo',
+            '可信认证': ['zaidu', 'chengji', 'cet', 'caozuo'],
+            '打印': ['zaidu', 'chengji', 'cet'],
+            '报修': 'baoxiu',
+            '维修': 'baoxiu',
+            '修理': 'baoxiu',
+            '灯管': 'baoxiu',
+            '水龙头': 'baoxiu',
+            '宿舍': ['baoxiu', 'chongdian'],
+            '充电': 'chongdian',
+            '电费': 'chongdian',
+            '购电': 'chongdian',
+            '校园卡': 'xiaoyuanka',
+            '一卡通': 'xiaoyuanka',
+            '挂失': 'xiaoyuanka',
+            '完美校园': 'xiaoyuanka',
+            '校园网': 'wangluo',
+            '网络': 'wangluo',
+            'wifi': 'wangluo',
+            '银行卡': 'bangka',
+            '绑定': 'bangka',
+            '建行': 'bangka',
+            '奖助学金': 'bangka',
+            '财务': 'bangka',
+            '医保': 'yibao',
+            '社保': 'yibao',
+            '成都税务': 'yibao',
+            '缴费': 'yibao',
+            '医疗': 'yibao',
+            '保险': 'yibao',
+            '400': 'yibao',
+            '448': 'yibao',
+            '成华区': 'yibao',
+        };
+
+        searchInput.addEventListener('input', function() {
+            const query = this.value.trim().toLowerCase();
+
+            // 显示/隐藏清除按钮
+            if (query.length > 0) {
+                searchClear.classList.add('visible');
+            } else {
+                searchClear.classList.remove('visible');
+            }
+
+            // 如果搜索框为空，显示全部
+            if (query === '') {
+                showAllCards();
+                noResult.style.display = 'none';
+                return;
+            }
+
+            // 查找匹配的卡片ID
+            let matchedIds = new Set();
+
+            // 先精确匹配关键词映射
+            for (const [keyword, ids] of Object.entries(keywordMap)) {
+                if (keyword.includes(query) || query.includes(keyword)) {
+                    if (Array.isArray(ids)) {
+                        ids.forEach(id => matchedIds.add(id));
+                    } else {
+                        matchedIds.add(ids);
+                    }
+                }
+            }
+
+            // 再模糊搜索卡片标题和内容
+            for (const [id, data] of Object.entries(cardData)) {
+                if (data.title.toLowerCase().includes(query) ||
+                    data.body.toLowerCase().includes(query) ||
+                    data.category.toLowerCase().includes(query)) {
+                    matchedIds.add(id);
+                }
+            }
+
+            // 更新显示
+            if (matchedIds.size === 0) {
+                hideAllCards();
+                noResult.style.display = 'block';
+            } else {
+                noResult.style.display = 'none';
+                const allCards = document.querySelectorAll('.card');
+                allCards.forEach(card => {
+                    const cardId = card.getAttribute('data-id');
+                    if (matchedIds.has(cardId)) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                // 隐藏空的分类标题
+                updateSectionVisibility();
+            }
+        });
+
+        function showAllCards() {
+            const allCards = document.querySelectorAll('.card');
+            allCards.forEach(card => {
+                card.style.display = '';
+            });
+            // 显示所有分类标题
+            const sections = document.querySelectorAll('.section-title');
+            sections.forEach(s => s.style.display = '');
+            const grids = document.querySelectorAll('.card-grid');
+            grids.forEach(g => g.style.display = '');
+        }
+
+        function hideAllCards() {
+            const allCards = document.querySelectorAll('.card');
+            allCards.forEach(card => {
+                card.style.display = 'none';
+            });
+        }
+
+        function updateSectionVisibility() {
+            const grids = document.querySelectorAll('.card-grid');
+            grids.forEach(grid => {
+                const visibleCards = grid.querySelectorAll('.card[style*="display:"]');
+                const allHidden = Array.from(grid.querySelectorAll('.card')).every(
+                    card => card.style.display === 'none'
+                );
+                // 找到这个grid前面的section-title
+                const prevSibling = grid.previousElementSibling;
+                if (allHidden && prevSibling && prevSibling.classList.contains('section-title')) {
+                    prevSibling.style.display = 'none';
+                } else if (prevSibling && prevSibling.classList.contains('section-title')) {
+                    prevSibling.style.display = '';
+                }
+            });
+        }
+
+        function clearSearch() {
+            searchInput.value = '';
+            searchClear.classList.remove('visible');
+            showAllCards();
+            noResult.style.display = 'none';
+            searchInput.focus();
+        }
+
+        // ==================== 键盘事件（关闭弹窗） ====================
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeDetailDirect();
+            }
+        });
+    </script>
+</body>
+</html>
