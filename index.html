@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>成理核自学生会 · 办事通</title>
+    <!-- 腾讯云开发 Web SDK -->
+    <script src="https://imgcache.qq.com/qcloud/cloudbase-js-sdk/1.7.1/cloudbase.full.js"></script>
     <style>
         :root {
             --primary: #1a6fb5;
@@ -576,6 +578,25 @@
             line-height: 1.6;
         }
 
+        /* 加载动画 */
+        .loading-spinner {
+            text-align: center;
+            padding: 30px;
+            color: #999;
+        }
+        .loading-spinner .spinner {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            border: 3px solid #ddd;
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -609,7 +630,6 @@
     <!-- ==================== 主内容区 ==================== -->
     <div class="container" id="cardContainer">
 
-        <!-- 学业证明 -->
         <div class="section-title"><span class="dot"></span> 学业证明</div>
         <div class="card-grid" data-category="学业证明">
             <div class="card" data-id="zhiyin" onclick="openDetail('zhiyin')">
@@ -624,7 +644,6 @@
             </div>
         </div>
 
-        <!-- 生活服务 -->
         <div class="section-title"><span class="dot"></span> 生活服务</div>
         <div class="card-grid" data-category="生活服务">
             <div class="card" data-id="baoxiu" onclick="openDetail('baoxiu')">
@@ -644,7 +663,6 @@
             </div>
         </div>
 
-        <!-- 财务医保 -->
         <div class="section-title"><span class="dot"></span> 财务与医保</div>
         <div class="card-grid" data-category="财务医保">
             <div class="card" data-id="bangka" onclick="openDetail('bangka')">
@@ -659,14 +677,13 @@
             </div>
         </div>
 
-        <!-- 跳蚤市场 -->
         <div class="section-title"><span class="dot"></span> 🛒 校园跳蚤市场</div>
         <div class="card-grid single-col" data-category="跳蚤市场">
             <div class="card flea-market-card" onclick="openFleaMarket()">
                 <div class="card-icon icon-gold">🔄</div>
                 <h3>二手交易树洞</h3>
                 <p>闲置物品发布 · 全校同学均可参与 · 留下联系方式自由交易</p>
-                <span style="font-size:11px;color:#f39c12;font-weight:600;" id="fleaCount">暂无物品</span>
+                <span style="font-size:11px;color:#f39c12;font-weight:600;" id="fleaCount">加载中...</span>
             </div>
         </div>
 
@@ -707,7 +724,12 @@
                     <span>🔍</span>
                     <input type="text" id="fleaSearchInput" placeholder="搜索物品..." oninput="filterFleaItems()">
                 </div>
-                <div id="fleaItemList"></div>
+                <div id="fleaItemList">
+                    <div class="loading-spinner">
+                        <div class="spinner"></div>
+                        <p style="margin-top:8px;">加载中...</p>
+                    </div>
+                </div>
             </div>
 
             <div class="publish-form" id="publishForm">
@@ -731,7 +753,7 @@
                 <input type="text" id="pubContact" placeholder="微信号/手机号/QQ号">
                 <div class="btn-group">
                     <button class="btn-cancel" onclick="hidePublishForm()">取消</button>
-                    <button class="btn-submit" onclick="publishItem()">✅ 发布</button>
+                    <button class="btn-submit" id="btnSubmit" onclick="publishItem()">✅ 发布</button>
                 </div>
             </div>
 
@@ -740,6 +762,17 @@
     </div>
 
     <script>
+        // ==================== 腾讯云开发初始化 ====================
+        const app = cloudbase.init({
+            env: 'hz-1-d2gjddiy3cb54e9ee'
+        });
+        const db = app.database();
+        const fleaCollection = db.collection('flea_items');
+        // 匿名登录
+        let loginPromise = app.auth().anonymousAuthProvider().signIn().catch(err => {
+            console.warn('云开发登录失败:', err);
+        });
+
         // ==================== 办事指南数据 ====================
         const cardData = {
             zhiyin: {
@@ -897,7 +930,7 @@
             '打印': 'zhiyin',
             '可信电子凭证': ['zhiyin', 'lianjie'],
             '可信认证': ['zhiyin', 'lianjie'],
-            '砚湖易办': ['zhiyin', 'lianjie', 'bangka'],
+            '砚湖易办': ['zhiyin', 'lianjie'],
             '直达': 'lianjie',
             '链接': 'lianjie',
             '平台': 'lianjie',
@@ -1028,27 +1061,19 @@
             searchInput.focus();
         }
 
-        // ==================== 跳蚤市场 ====================
-        const STORAGE_KEY = 'cdut_flea_items';
+        // ==================== 跳蚤市场（云开发版） ====================
         let fleaItems = [];
+        let currentUserUid = null;
+        const STORAGE_KEY_UID = 'cdut_flea_uid';
 
-        function loadFleaItems() {
-            try {
-                fleaItems = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-            } catch (e) {
-                fleaItems = [];
+        // 获取或生成用户标识
+        function getUserUid() {
+            let uid = localStorage.getItem(STORAGE_KEY_UID);
+            if (!uid) {
+                uid = 'u_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
+                localStorage.setItem(STORAGE_KEY_UID, uid);
             }
-            updateFleaCount();
-        }
-
-        function saveFleaItems() {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(fleaItems));
-            updateFleaCount();
-        }
-
-        function updateFleaCount() {
-            const el = document.getElementById('fleaCount');
-            if (el) el.textContent = fleaItems.length === 0 ? '暂无物品' : `共 ${fleaItems.length} 件物品`;
+            return uid;
         }
 
         function openFleaMarket() {
@@ -1056,7 +1081,7 @@
             document.body.style.overflow = 'hidden';
             document.getElementById('fleaPanel').scrollTop = 0;
             hidePublishForm(true);
-            renderFleaItems();
+            loadFleaItemsFromCloud();
         }
 
         function closeFleaMarketDirect() {
@@ -1090,7 +1115,49 @@
                 pi.disabled = false; }
         }
 
-        function publishItem() {
+        // ==================== 云数据库操作 ====================
+
+        // 从云端加载数据
+        async function loadFleaItemsFromCloud() {
+            const listEl = document.getElementById('fleaItemList');
+            listEl.innerHTML = '<div class="loading-spinner"><div class="spinner"></div><p style="margin-top:8px;">加载中...</p></div>';
+
+            try {
+                await loginPromise;
+                const res = await fleaCollection.orderBy('createdAt', 'desc').limit(100).get();
+                fleaItems = res.data.map(doc => ({
+                    _id: doc._id,
+                    id: doc._id,
+                    name: doc.name,
+                    desc: doc.desc || '',
+                    price: doc.price,
+                    contact: doc.contact,
+                    time: doc.time,
+                    isFree: doc.isFree,
+                    userUid: doc.userUid
+                }));
+                renderFleaItems();
+                updateFleaCount();
+            } catch (err) {
+                console.error('加载跳蚤市场数据失败:', err);
+                listEl.innerHTML = '<div class="flea-empty"><span class="emoji">😵</span><p>加载失败，请检查网络后重试</p></div>';
+            }
+        }
+
+        // 更新首页计数
+        async function updateFleaCount() {
+            const el = document.getElementById('fleaCount');
+            try {
+                await loginPromise;
+                const res = await fleaCollection.count();
+                el.textContent = res.total === 0 ? '暂无物品' : `共 ${res.total} 件物品`;
+            } catch (e) {
+                el.textContent = fleaItems.length === 0 ? '暂无物品' : `共 ${fleaItems.length} 件物品`;
+            }
+        }
+
+        // 发布物品
+        async function publishItem() {
             const name = document.getElementById('pubName').value.trim();
             const desc = document.getElementById('pubDesc').value.trim();
             const freeCheck = document.getElementById('pubFree');
@@ -1102,31 +1169,56 @@
             if (!freeCheck.checked && !price) return showToast('请输入价格或勾选"免费送"');
             if (freeCheck.checked) price = '免费送';
 
-            fleaItems.unshift({
-                id: Date.now().toString(),
-                name,
-                desc,
-                price,
-                contact,
-                time: new Date().toLocaleString('zh-CN', { month: 'numeric', day: 'numeric', hour: '2-digit',
-                    minute: '2-digit' }),
-                isFree: freeCheck.checked || price === '免费送'
-            });
-            saveFleaItems();
-            hidePublishForm();
-            renderFleaItems();
-            showToast('✅ 发布成功！');
-        }
+            const btn = document.getElementById('btnSubmit');
+            btn.textContent = '发布中...';
+            btn.disabled = true;
 
-        function deleteFleaItem(id) {
-            if (confirm('确定要删除这条信息吗？')) {
-                fleaItems = fleaItems.filter(i => i.id !== id);
-                saveFleaItems();
-                renderFleaItems();
-                showToast('已删除');
+            try {
+                await loginPromise;
+                const uid = getUserUid();
+                const now = new Date();
+                const timeStr = now.toLocaleString('zh-CN', { month: 'numeric', day: 'numeric', hour: '2-digit',
+                    minute: '2-digit' });
+
+                await fleaCollection.add({
+                    name,
+                    desc,
+                    price,
+                    contact,
+                    time: timeStr,
+                    isFree: freeCheck.checked || price === '免费送',
+                    userUid: uid,
+                    createdAt: now.getTime()
+                });
+
+                hidePublishForm();
+                await loadFleaItemsFromCloud();
+                showToast('✅ 发布成功！');
+            } catch (err) {
+                console.error('发布失败:', err);
+                showToast('发布失败，请重试');
+            } finally {
+                btn.textContent = '✅ 发布';
+                btn.disabled = false;
             }
         }
 
+        // 删除物品
+        async function deleteFleaItem(docId) {
+            if (!confirm('确定要删除这条信息吗？')) return;
+
+            try {
+                await loginPromise;
+                await fleaCollection.doc(docId).remove();
+                await loadFleaItemsFromCloud();
+                showToast('已删除');
+            } catch (err) {
+                console.error('删除失败:', err);
+                showToast('删除失败，请重试');
+            }
+        }
+
+        // 联系卖家
         function contactSeller(contact) {
             if (/^1[3-9]\d{9}$/.test(contact)) {
                 if (confirm(`拨打 ${contact}？`)) window.location.href = `tel:${contact}`;
@@ -1141,8 +1233,8 @@
             let items = fleaItems;
             if (filterText) {
                 const ft = filterText.toLowerCase();
-                items = items.filter(i => i.name.toLowerCase().includes(ft) || i.desc.toLowerCase().includes(ft) || i
-                    .price.toLowerCase().includes(ft));
+                items = items.filter(i => i.name.toLowerCase().includes(ft) || (i.desc || '').toLowerCase().includes(
+                    ft) || i.price.toLowerCase().includes(ft));
             }
             if (items.length === 0) {
                 listEl.innerHTML = `
@@ -1153,6 +1245,8 @@
               </div>`;
                 return;
             }
+
+            const currentUid = getUserUid();
             listEl.innerHTML = items.map(item => `
             <div class="flea-item">
               <div class="flea-item-header">
@@ -1161,7 +1255,7 @@
               </div>
               ${item.desc ? `<div class="flea-item-desc">${escapeHtml(item.desc)}</div>` : ''}
               <span class="flea-item-contact" onclick="contactSeller('${escapeAttr(item.contact)}')">📞 ${escapeHtml(item.contact)}</span>
-              <span class="flea-item-delete" onclick="deleteFleaItem('${item.id}')">删除</span>
+              ${item.userUid === currentUid ? `<span class="flea-item-delete" onclick="deleteFleaItem('${item._id}')">删除</span>` : ''}
               <span class="flea-item-time">🕐 ${item.time}</span>
             </div>`).join('');
         }
@@ -1180,7 +1274,7 @@
             t.textContent = msg;
             t.classList.add('show');
             clearTimeout(t._timeout);
-            t._timeout = setTimeout(() => t.classList.remove('show'), 1500);
+            t._timeout = setTimeout(() => t.classList.remove('show'), 2000);
         }
 
         document.addEventListener('keydown', function(e) {
@@ -1188,7 +1282,8 @@
                 closeFleaMarketDirect(); }
         });
 
-        loadFleaItems();
+        // 页面加载时更新计数
+        loginPromise.then(() => updateFleaCount()).catch(() => {});
     </script>
 </body>
 </html>
