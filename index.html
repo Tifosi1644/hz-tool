@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>成理核自学生会 · 办事通</title>
-    <!-- 腾讯云开发 Web SDK -->
-    <script src="https://imgcache.qq.com/qcloud/cloudbase-js-sdk/1.7.1/cloudbase.full.js"></script>
     <style>
         :root {
             --primary: #1a6fb5;
@@ -18,7 +16,6 @@
             --shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
             --accent-green: #27ae60;
             --accent-orange: #e67e22;
-            --accent-purple: #8e44ad;
             --accent-red: #c0392b;
         }
 
@@ -165,9 +162,6 @@
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
         }
-        .card-grid.single-col {
-            grid-template-columns: 1fr;
-        }
 
         .card {
             background: var(--card-bg);
@@ -217,10 +211,6 @@
             background: #e8f8f5;
             color: #16a085;
         }
-        .icon-gold {
-            background: #fff9e6;
-            color: #f39c12;
-        }
 
         .card h3 {
             font-size: 15px;
@@ -232,17 +222,6 @@
             font-size: 12px;
             color: var(--text-secondary);
             line-height: 1.4;
-        }
-
-        .flea-market-card {
-            background: linear-gradient(135deg, #fff9e6 0%, #fff3cd 100%);
-            border: 2px dashed #f0c040;
-            cursor: pointer;
-            transition: all 0.25s ease;
-        }
-        .flea-market-card:active {
-            transform: scale(0.97);
-            background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
         }
 
         .detail-overlay {
@@ -347,188 +326,6 @@
             background: var(--primary-dark);
         }
 
-        .flea-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-        }
-        .flea-header h2 {
-            margin-bottom: 0;
-        }
-        .btn-publish {
-            background: var(--accent-orange);
-            color: #fff;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 22px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
-        }
-        .btn-publish:active {
-            background: #d35400;
-        }
-
-        .flea-search {
-            background: #f5f7fa;
-            border-radius: 22px;
-            padding: 10px 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 14px;
-        }
-        .flea-search input {
-            flex: 1;
-            border: none;
-            outline: none;
-            background: transparent;
-            font-size: 14px;
-        }
-
-        .flea-item {
-            background: #fafafa;
-            border-radius: 12px;
-            padding: 14px;
-            margin-bottom: 10px;
-            border: 1px solid #eee;
-            transition: all 0.2s;
-        }
-        .flea-item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 6px;
-        }
-        .flea-item-name {
-            font-weight: 700;
-            font-size: 16px;
-            color: #333;
-            flex: 1;
-        }
-        .flea-item-price {
-            font-weight: 700;
-            font-size: 18px;
-            color: #e67e22;
-            white-space: nowrap;
-            margin-left: 10px;
-        }
-        .flea-item-price.free {
-            color: #27ae60;
-        }
-        .flea-item-desc {
-            font-size: 13px;
-            color: #666;
-            margin-bottom: 8px;
-            line-height: 1.5;
-        }
-        .flea-item-contact {
-            font-size: 13px;
-            color: #1a6fb5;
-            background: #e8f4fd;
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 14px;
-            margin-right: 6px;
-            cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
-        }
-        .flea-item-contact:active {
-            background: #cce4f8;
-        }
-        .flea-item-time {
-            font-size: 11px;
-            color: #bbb;
-            display: block;
-            margin-top: 6px;
-        }
-        .flea-item-delete {
-            font-size: 11px;
-            color: #c0392b;
-            cursor: pointer;
-            float: right;
-            padding: 2px 8px;
-            -webkit-tap-highlight-color: transparent;
-        }
-        .flea-empty {
-            text-align: center;
-            padding: 40px 20px;
-            color: #bbb;
-        }
-        .flea-empty .emoji {
-            font-size: 40px;
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        .publish-form {
-            display: none;
-        }
-        .publish-form.active {
-            display: block;
-        }
-        .publish-form label {
-            display: block;
-            font-size: 13px;
-            font-weight: 600;
-            color: #555;
-            margin: 12px 0 4px;
-        }
-        .publish-form input,
-        .publish-form textarea {
-            width: 100%;
-            border: 1.5px solid #ddd;
-            border-radius: 10px;
-            padding: 10px 12px;
-            font-size: 14px;
-            outline: none;
-            transition: border 0.2s;
-            font-family: inherit;
-        }
-        .publish-form textarea {
-            min-height: 70px;
-            resize: vertical;
-        }
-        .publish-form input:focus,
-        .publish-form textarea:focus {
-            border-color: var(--primary);
-        }
-        .btn-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 16px;
-        }
-        .btn-submit {
-            flex: 1;
-            background: var(--accent-orange);
-            color: #fff;
-            border: none;
-            padding: 12px;
-            border-radius: 24px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        .btn-submit:active {
-            background: #d35400;
-        }
-        .btn-cancel {
-            flex: 1;
-            background: #eee;
-            color: #666;
-            border: none;
-            padding: 12px;
-            border-radius: 24px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        .btn-cancel:active {
-            background: #ddd;
-        }
-
         .footer {
             text-align: center;
             padding: 20px;
@@ -548,55 +345,6 @@
             margin-bottom: 12px;
         }
 
-        .toast {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.78);
-            color: #fff;
-            padding: 14px 24px;
-            border-radius: 24px;
-            font-size: 14px;
-            z-index: 999;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        .toast.show {
-            opacity: 1;
-        }
-
-        .disclaimer {
-            background: #fef9f0;
-            border: 1px solid #f0d77b;
-            border-radius: 10px;
-            padding: 10px 12px;
-            font-size: 11px;
-            color: #b8860b;
-            margin-bottom: 12px;
-            line-height: 1.6;
-        }
-
-        /* 加载动画 */
-        .loading-spinner {
-            text-align: center;
-            padding: 30px;
-            color: #999;
-        }
-        .loading-spinner .spinner {
-            display: inline-block;
-            width: 28px;
-            height: 28px;
-            border: 3px solid #ddd;
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -608,8 +356,6 @@
     </style>
 </head>
 <body>
-
-    <div class="toast" id="toast"></div>
 
     <!-- ==================== 头部 ==================== -->
     <div class="header">
@@ -630,6 +376,7 @@
     <!-- ==================== 主内容区 ==================== -->
     <div class="container" id="cardContainer">
 
+        <!-- 学业证明 -->
         <div class="section-title"><span class="dot"></span> 学业证明</div>
         <div class="card-grid" data-category="学业证明">
             <div class="card" data-id="zhiyin" onclick="openDetail('zhiyin')">
@@ -644,6 +391,7 @@
             </div>
         </div>
 
+        <!-- 生活服务 -->
         <div class="section-title"><span class="dot"></span> 生活服务</div>
         <div class="card-grid" data-category="生活服务">
             <div class="card" data-id="baoxiu" onclick="openDetail('baoxiu')">
@@ -663,6 +411,7 @@
             </div>
         </div>
 
+        <!-- 财务医保 -->
         <div class="section-title"><span class="dot"></span> 财务与医保</div>
         <div class="card-grid" data-category="财务医保">
             <div class="card" data-id="bangka" onclick="openDetail('bangka')">
@@ -677,16 +426,6 @@
             </div>
         </div>
 
-        <div class="section-title"><span class="dot"></span> 🛒 校园跳蚤市场</div>
-        <div class="card-grid single-col" data-category="跳蚤市场">
-            <div class="card flea-market-card" onclick="openFleaMarket()">
-                <div class="card-icon icon-gold">🔄</div>
-                <h3>二手交易树洞</h3>
-                <p>闲置物品发布 · 全校同学均可参与 · 留下联系方式自由交易</p>
-                <span style="font-size:11px;color:#f39c12;font-weight:600;" id="fleaCount">加载中...</span>
-            </div>
-        </div>
-
         <div class="no-result" id="noResult">
             <div class="emoji">🔍</div>
             <p>未找到相关内容</p>
@@ -698,7 +437,7 @@
         成都理工大学 核技术与自动化工程学院 学生会 · 持续更新中
     </div>
 
-    <!-- ==================== 办事指南详情弹窗 ==================== -->
+    <!-- ==================== 详情弹窗 ==================== -->
     <div class="detail-overlay" id="detailOverlay" onclick="closeDetail(event)">
         <div class="detail-panel" id="detailPanel" onclick="event.stopPropagation()">
             <div class="detail-handle"></div>
@@ -707,72 +446,7 @@
         </div>
     </div>
 
-    <!-- ==================== 跳蚤市场弹窗 ==================== -->
-    <div class="detail-overlay" id="fleaOverlay" onclick="closeFleaMarket(event)">
-        <div class="detail-panel" id="fleaPanel" onclick="event.stopPropagation()">
-            <div class="detail-handle"></div>
-
-            <div id="fleaListView">
-                <div class="flea-header">
-                    <h2>🛒 校园跳蚤市场</h2>
-                    <button class="btn-publish" onclick="showPublishForm()">➕ 发布</button>
-                </div>
-                <div class="disclaimer">
-                    ⚠️ 免责声明：本平台仅提供信息发布，交易请自行甄别，谨防诈骗。如产生纠纷，请双方自行协商解决。
-                </div>
-                <div class="flea-search">
-                    <span>🔍</span>
-                    <input type="text" id="fleaSearchInput" placeholder="搜索物品..." oninput="filterFleaItems()">
-                </div>
-                <div id="fleaItemList">
-                    <div class="loading-spinner">
-                        <div class="spinner"></div>
-                        <p style="margin-top:8px;">加载中...</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="publish-form" id="publishForm">
-                <h2 style="margin-bottom:4px;">📝 发布闲置物品</h2>
-                <p style="font-size:12px;color:#999;margin-bottom:8px;">填写物品信息，留下联系方式</p>
-                <div class="disclaimer">
-                    ⚠️ 请如实描述物品情况，交易时注意安全，建议在校内当面交易。
-                </div>
-                <label>物品名称 *</label>
-                <input type="text" id="pubName" placeholder="如：考研数学全书、台灯、收纳箱...">
-                <label>详细描述</label>
-                <textarea id="pubDesc" placeholder="说明物品成色、使用情况、入手渠道等..."></textarea>
-                <label>价格</label>
-                <div style="display:flex;align-items:center;gap:8px;">
-                    <input type="text" id="pubPrice" placeholder="如：15元、免费送、私聊" style="flex:1;">
-                    <label style="display:flex;align-items:center;gap:4px;margin:0;white-space:nowrap;font-size:13px;cursor:pointer;">
-                        <input type="checkbox" id="pubFree" onchange="toggleFree()"> 免费送
-                    </label>
-                </div>
-                <label>联系方式 *</label>
-                <input type="text" id="pubContact" placeholder="微信号/手机号/QQ号">
-                <div class="btn-group">
-                    <button class="btn-cancel" onclick="hidePublishForm()">取消</button>
-                    <button class="btn-submit" id="btnSubmit" onclick="publishItem()">✅ 发布</button>
-                </div>
-            </div>
-
-            <button class="detail-close" onclick="closeFleaMarketDirect()">关 闭</button>
-        </div>
-    </div>
-
     <script>
-        // ==================== 腾讯云开发初始化 ====================
-        const app = cloudbase.init({
-            env: 'hz-1-d2gjddiy3cb54e9ee'
-        });
-        const db = app.database();
-        const fleaCollection = db.collection('flea_items');
-        // 匿名登录
-        let loginPromise = app.auth().anonymousAuthProvider().signIn().catch(err => {
-            console.warn('云开发登录失败:', err);
-        });
-
         // ==================== 办事指南数据 ====================
         const cardData = {
             zhiyin: {
@@ -964,21 +638,11 @@
             '400': 'yibao',
             '448': 'yibao',
             '成华区': 'yibao',
-            '二手': 'flea',
-            '闲置': 'flea',
-            '跳蚤': 'flea',
-            '出售': 'flea',
-            '转让': 'flea',
-            '交易': 'flea',
         };
 
         searchInput.addEventListener('input', function() {
             const query = this.value.trim().toLowerCase();
-            if (query.length > 0) {
-                searchClear.classList.add('visible');
-            } else {
-                searchClear.classList.remove('visible');
-            }
+            searchClear.classList.toggle('visible', query.length > 0);
             if (query === '') {
                 showAllCards();
                 noResult.style.display = 'none';
@@ -988,9 +652,7 @@
             let matchedIds = new Set();
             for (const [keyword, ids] of Object.entries(keywordMap)) {
                 if (keyword.includes(query) || query.includes(keyword)) {
-                    if (ids === 'flea') {
-                        matchedIds.add('flea-market-special');
-                    } else if (Array.isArray(ids)) {
+                    if (Array.isArray(ids)) {
                         ids.forEach(id => matchedIds.add(id));
                     } else {
                         matchedIds.add(ids);
@@ -1004,10 +666,6 @@
                     matchedIds.add(id);
                 }
             }
-            if (query.includes('二手') || query.includes('闲置') || query.includes('跳蚤') || query.includes('出售') ||
-                query.includes('交易')) {
-                matchedIds.add('flea-market-special');
-            }
 
             if (matchedIds.size === 0) {
                 hideAllCards();
@@ -1016,15 +674,7 @@
                 noResult.style.display = 'none';
                 document.querySelectorAll('.card').forEach(card => {
                     const cardId = card.getAttribute('data-id');
-                    if (matchedIds.has(cardId) || (matchedIds.has('flea-market-special') && card.classList
-                            .contains('flea-market-card'))) {
-                        card.style.display = '';
-                    } else if (card.classList.contains('flea-market-card') && !matchedIds.has(
-                            'flea-market-special')) {
-                        card.style.display = 'none';
-                    } else if (cardId && !matchedIds.has(cardId)) {
-                        card.style.display = 'none';
-                    }
+                    card.style.display = matchedIds.has(cardId) ? '' : 'none';
                 });
                 updateSectionVisibility();
             }
@@ -1042,8 +692,7 @@
 
         function updateSectionVisibility() {
             document.querySelectorAll('.card-grid').forEach(grid => {
-                const allHidden = Array.from(grid.querySelectorAll('.card')).every(c => c.style.display ===
-                    'none');
+                const allHidden = Array.from(grid.querySelectorAll('.card')).every(c => c.style.display === 'none');
                 const prev = grid.previousElementSibling;
                 if (allHidden && prev && prev.classList.contains('section-title')) {
                     prev.style.display = 'none';
@@ -1061,229 +710,9 @@
             searchInput.focus();
         }
 
-        // ==================== 跳蚤市场（云开发版） ====================
-        let fleaItems = [];
-        let currentUserUid = null;
-        const STORAGE_KEY_UID = 'cdut_flea_uid';
-
-        // 获取或生成用户标识
-        function getUserUid() {
-            let uid = localStorage.getItem(STORAGE_KEY_UID);
-            if (!uid) {
-                uid = 'u_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
-                localStorage.setItem(STORAGE_KEY_UID, uid);
-            }
-            return uid;
-        }
-
-        function openFleaMarket() {
-            document.getElementById('fleaOverlay').classList.add('show');
-            document.body.style.overflow = 'hidden';
-            document.getElementById('fleaPanel').scrollTop = 0;
-            hidePublishForm(true);
-            loadFleaItemsFromCloud();
-        }
-
-        function closeFleaMarketDirect() {
-            document.getElementById('fleaOverlay').classList.remove('show');
-            document.body.style.overflow = '';
-        }
-
-        function closeFleaMarket(event) {
-            if (event.target === document.getElementById('fleaOverlay')) closeFleaMarketDirect();
-        }
-
-        function showPublishForm() {
-            document.getElementById('fleaListView').style.display = 'none';
-            document.getElementById('publishForm').classList.add('active');
-            ['pubName', 'pubDesc', 'pubPrice', 'pubContact'].forEach(id => document.getElementById(id).value = '');
-            document.getElementById('pubFree').checked = false;
-            document.getElementById('pubPrice').disabled = false;
-        }
-
-        function hidePublishForm(silent) {
-            document.getElementById('fleaListView').style.display = '';
-            document.getElementById('publishForm').classList.remove('active');
-            if (!silent) renderFleaItems();
-        }
-
-        function toggleFree() {
-            const ck = document.getElementById('pubFree');
-            const pi = document.getElementById('pubPrice');
-            if (ck.checked) { pi.value = '免费送';
-                pi.disabled = true; } else { pi.value = '';
-                pi.disabled = false; }
-        }
-
-        // ==================== 云数据库操作 ====================
-
-        // 从云端加载数据
-        async function loadFleaItemsFromCloud() {
-            const listEl = document.getElementById('fleaItemList');
-            listEl.innerHTML = '<div class="loading-spinner"><div class="spinner"></div><p style="margin-top:8px;">加载中...</p></div>';
-
-            try {
-                await loginPromise;
-                const res = await fleaCollection.orderBy('createdAt', 'desc').limit(100).get();
-                fleaItems = res.data.map(doc => ({
-                    _id: doc._id,
-                    id: doc._id,
-                    name: doc.name,
-                    desc: doc.desc || '',
-                    price: doc.price,
-                    contact: doc.contact,
-                    time: doc.time,
-                    isFree: doc.isFree,
-                    userUid: doc.userUid
-                }));
-                renderFleaItems();
-                updateFleaCount();
-            } catch (err) {
-                console.error('加载跳蚤市场数据失败:', err);
-                listEl.innerHTML = '<div class="flea-empty"><span class="emoji">😵</span><p>加载失败，请检查网络后重试</p></div>';
-            }
-        }
-
-        // 更新首页计数
-        async function updateFleaCount() {
-            const el = document.getElementById('fleaCount');
-            try {
-                await loginPromise;
-                const res = await fleaCollection.count();
-                el.textContent = res.total === 0 ? '暂无物品' : `共 ${res.total} 件物品`;
-            } catch (e) {
-                el.textContent = fleaItems.length === 0 ? '暂无物品' : `共 ${fleaItems.length} 件物品`;
-            }
-        }
-
-        // 发布物品
-        async function publishItem() {
-            const name = document.getElementById('pubName').value.trim();
-            const desc = document.getElementById('pubDesc').value.trim();
-            const freeCheck = document.getElementById('pubFree');
-            let price = document.getElementById('pubPrice').value.trim();
-            const contact = document.getElementById('pubContact').value.trim();
-
-            if (!name) return showToast('请输入物品名称');
-            if (!contact) return showToast('请留下联系方式');
-            if (!freeCheck.checked && !price) return showToast('请输入价格或勾选"免费送"');
-            if (freeCheck.checked) price = '免费送';
-
-            const btn = document.getElementById('btnSubmit');
-            btn.textContent = '发布中...';
-            btn.disabled = true;
-
-            try {
-                await loginPromise;
-                const uid = getUserUid();
-                const now = new Date();
-                const timeStr = now.toLocaleString('zh-CN', { month: 'numeric', day: 'numeric', hour: '2-digit',
-                    minute: '2-digit' });
-
-                await fleaCollection.add({
-                    name,
-                    desc,
-                    price,
-                    contact,
-                    time: timeStr,
-                    isFree: freeCheck.checked || price === '免费送',
-                    userUid: uid,
-                    createdAt: now.getTime()
-                });
-
-                hidePublishForm();
-                await loadFleaItemsFromCloud();
-                showToast('✅ 发布成功！');
-            } catch (err) {
-                console.error('发布失败:', err);
-                showToast('发布失败，请重试');
-            } finally {
-                btn.textContent = '✅ 发布';
-                btn.disabled = false;
-            }
-        }
-
-        // 删除物品
-        async function deleteFleaItem(docId) {
-            if (!confirm('确定要删除这条信息吗？')) return;
-
-            try {
-                await loginPromise;
-                await fleaCollection.doc(docId).remove();
-                await loadFleaItemsFromCloud();
-                showToast('已删除');
-            } catch (err) {
-                console.error('删除失败:', err);
-                showToast('删除失败，请重试');
-            }
-        }
-
-        // 联系卖家
-        function contactSeller(contact) {
-            if (/^1[3-9]\d{9}$/.test(contact)) {
-                if (confirm(`拨打 ${contact}？`)) window.location.href = `tel:${contact}`;
-            } else {
-                navigator.clipboard.writeText(contact).then(() => showToast(`📋 已复制：${contact}`)).catch(() => showToast(
-                    `📞 联系方式：${contact}`));
-            }
-        }
-
-        function renderFleaItems(filterText) {
-            const listEl = document.getElementById('fleaItemList');
-            let items = fleaItems;
-            if (filterText) {
-                const ft = filterText.toLowerCase();
-                items = items.filter(i => i.name.toLowerCase().includes(ft) || (i.desc || '').toLowerCase().includes(
-                    ft) || i.price.toLowerCase().includes(ft));
-            }
-            if (items.length === 0) {
-                listEl.innerHTML = `
-              <div class="flea-empty">
-                <span class="emoji">📭</span>
-                <p>${filterText ? '没有匹配的物品' : '还没有人发布物品'}</p>
-                <p style="font-size:12px;color:#ccc;">点击右上角"发布"来发布第一件闲置吧~</p>
-              </div>`;
-                return;
-            }
-
-            const currentUid = getUserUid();
-            listEl.innerHTML = items.map(item => `
-            <div class="flea-item">
-              <div class="flea-item-header">
-                <span class="flea-item-name">${escapeHtml(item.name)}</span>
-                <span class="flea-item-price ${item.isFree ? 'free' : ''}">${escapeHtml(item.price)}</span>
-              </div>
-              ${item.desc ? `<div class="flea-item-desc">${escapeHtml(item.desc)}</div>` : ''}
-              <span class="flea-item-contact" onclick="contactSeller('${escapeAttr(item.contact)}')">📞 ${escapeHtml(item.contact)}</span>
-              ${item.userUid === currentUid ? `<span class="flea-item-delete" onclick="deleteFleaItem('${item._id}')">删除</span>` : ''}
-              <span class="flea-item-time">🕐 ${item.time}</span>
-            </div>`).join('');
-        }
-
-        function filterFleaItems() {
-            renderFleaItems(document.getElementById('fleaSearchInput').value.trim());
-        }
-
-        function escapeHtml(str) { const d = document.createElement('div');
-            d.textContent = str; return d.innerHTML; }
-
-        function escapeAttr(str) { return str.replace(/'/g, "\\'").replace(/"/g, '&quot;'); }
-
-        function showToast(msg) {
-            const t = document.getElementById('toast');
-            t.textContent = msg;
-            t.classList.add('show');
-            clearTimeout(t._timeout);
-            t._timeout = setTimeout(() => t.classList.remove('show'), 2000);
-        }
-
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') { closeDetailDirect();
-                closeFleaMarketDirect(); }
+            if (e.key === 'Escape') closeDetailDirect();
         });
-
-        // 页面加载时更新计数
-        loginPromise.then(() => updateFleaCount()).catch(() => {});
     </script>
 </body>
 </html>
