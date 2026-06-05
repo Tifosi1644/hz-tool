@@ -35,12 +35,12 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* ========== 头部 ========== */
         .header {
             background: linear-gradient(135deg, #1a6fb5 0%, #155d96 50%, #0f4c7d 100%);
             padding: 20px 20px 30px;
             position: relative;
             overflow: hidden;
+            z-index: 10;
         }
 
         .header::after {
@@ -87,7 +87,6 @@
             font-weight: 400;
         }
 
-        /* 搜索框 */
         .search-box {
             position: relative;
             z-index: 1;
@@ -133,7 +132,6 @@
             display: flex;
         }
 
-        /* ========== 主容器 ========== */
         .container {
             padding: 0 16px 40px;
             max-width: 500px;
@@ -143,7 +141,6 @@
             margin-top: -10px;
         }
 
-        /* ========== 分类标题 ========== */
         .section-title {
             font-size: 17px;
             font-weight: 700;
@@ -161,7 +158,6 @@
             display: inline-block;
         }
 
-        /* ========== 卡片网格 ========== */
         .card-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -188,10 +184,6 @@
             transform: scale(0.97);
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.14);
         }
-        .card.active-card {
-            border-color: var(--primary);
-            background: #f8fafe;
-        }
 
         .card-icon {
             width: 42px;
@@ -215,10 +207,6 @@
             background: #fef5ec;
             color: #e67e22;
         }
-        .icon-purple {
-            background: #f4ecf8;
-            color: #8e44ad;
-        }
         .icon-red {
             background: #fdedec;
             color: #c0392b;
@@ -226,6 +214,10 @@
         .icon-teal {
             background: #e8f8f5;
             color: #16a085;
+        }
+        .icon-gold {
+            background: #fff9e6;
+            color: #f39c12;
         }
 
         .card h3 {
@@ -240,7 +232,17 @@
             line-height: 1.4;
         }
 
-        /* ========== 详情面板 ========== */
+        .flea-market-card {
+            background: linear-gradient(135deg, #fff9e6 0%, #fff3cd 100%);
+            border: 2px dashed #f0c040;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .flea-market-card:active {
+            transform: scale(0.97);
+            background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
+        }
+
         .detail-overlay {
             position: fixed;
             top: 0;
@@ -305,7 +307,7 @@
             color: var(--primary);
             font-size: 13px;
             display: inline-block;
-            width: 20px;
+            width: 24px;
         }
         .detail-body .highlight-box {
             background: #fff9e6;
@@ -314,6 +316,10 @@
             margin: 12px 0;
             border: 1px solid #f0d77b;
             font-size: 13px;
+        }
+        .detail-body .highlight-box.blue {
+            background: #e8f4fd;
+            border-color: #a3cfee;
         }
         .detail-body a {
             color: var(--primary);
@@ -339,7 +345,188 @@
             background: var(--primary-dark);
         }
 
-        /* ========== 底部信息 ========== */
+        .flea-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .flea-header h2 {
+            margin-bottom: 0;
+        }
+        .btn-publish {
+            background: var(--accent-orange);
+            color: #fff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 22px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .btn-publish:active {
+            background: #d35400;
+        }
+
+        .flea-search {
+            background: #f5f7fa;
+            border-radius: 22px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+        .flea-search input {
+            flex: 1;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 14px;
+        }
+
+        .flea-item {
+            background: #fafafa;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 10px;
+            border: 1px solid #eee;
+            transition: all 0.2s;
+        }
+        .flea-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 6px;
+        }
+        .flea-item-name {
+            font-weight: 700;
+            font-size: 16px;
+            color: #333;
+            flex: 1;
+        }
+        .flea-item-price {
+            font-weight: 700;
+            font-size: 18px;
+            color: #e67e22;
+            white-space: nowrap;
+            margin-left: 10px;
+        }
+        .flea-item-price.free {
+            color: #27ae60;
+        }
+        .flea-item-desc {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        .flea-item-contact {
+            font-size: 13px;
+            color: #1a6fb5;
+            background: #e8f4fd;
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 14px;
+            margin-right: 6px;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .flea-item-contact:active {
+            background: #cce4f8;
+        }
+        .flea-item-time {
+            font-size: 11px;
+            color: #bbb;
+            display: block;
+            margin-top: 6px;
+        }
+        .flea-item-delete {
+            font-size: 11px;
+            color: #c0392b;
+            cursor: pointer;
+            float: right;
+            padding: 2px 8px;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .flea-empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: #bbb;
+        }
+        .flea-empty .emoji {
+            font-size: 40px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .publish-form {
+            display: none;
+        }
+        .publish-form.active {
+            display: block;
+        }
+        .publish-form label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #555;
+            margin: 12px 0 4px;
+        }
+        .publish-form input,
+        .publish-form textarea {
+            width: 100%;
+            border: 1.5px solid #ddd;
+            border-radius: 10px;
+            padding: 10px 12px;
+            font-size: 14px;
+            outline: none;
+            transition: border 0.2s;
+            font-family: inherit;
+        }
+        .publish-form textarea {
+            min-height: 70px;
+            resize: vertical;
+        }
+        .publish-form input:focus,
+        .publish-form textarea:focus {
+            border-color: var(--primary);
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+        }
+        .btn-submit {
+            flex: 1;
+            background: var(--accent-orange);
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 24px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .btn-submit:active {
+            background: #d35400;
+        }
+        .btn-cancel {
+            flex: 1;
+            background: #eee;
+            color: #666;
+            border: none;
+            padding: 12px;
+            border-radius: 24px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .btn-cancel:active {
+            background: #ddd;
+        }
+
         .footer {
             text-align: center;
             padding: 20px;
@@ -348,7 +535,6 @@
             margin-top: 10px;
         }
 
-        /* ========== 空搜索结果 ========== */
         .no-result {
             text-align: center;
             padding: 40px 20px;
@@ -360,26 +546,49 @@
             margin-bottom: 12px;
         }
 
-        /* ========== 动画 ========== */
+        .toast {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.78);
+            color: #fff;
+            padding: 14px 24px;
+            border-radius: 24px;
+            font-size: 14px;
+            z-index: 999;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .toast.show {
+            opacity: 1;
+        }
+
+        .disclaimer {
+            background: #fef9f0;
+            border: 1px solid #f0d77b;
+            border-radius: 10px;
+            padding: 10px 12px;
+            font-size: 11px;
+            color: #b8860b;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         @keyframes slideUp {
-            from {
-                transform: translateY(100%);
-            }
-            to {
-                transform: translateY(0);
-            }
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
         }
     </style>
 </head>
 <body>
+
+    <div class="toast" id="toast"></div>
 
     <!-- ==================== 头部 ==================== -->
     <div class="header">
@@ -390,7 +599,6 @@
                 <div class="header-subtitle">成都理工大学 · 校园生活指南</div>
             </div>
         </div>
-        <!-- 搜索框 -->
         <div class="search-box">
             <span class="search-icon">🔍</span>
             <input type="text" id="searchInput" placeholder="搜索你关心的问题，如：在读证明、医保、报修...">
@@ -404,25 +612,15 @@
         <!-- 学业证明 -->
         <div class="section-title"><span class="dot"></span> 学业证明</div>
         <div class="card-grid" data-category="学业证明">
-            <div class="card" data-id="zaidu" onclick="openDetail('zaidu')">
-                <div class="card-icon icon-blue">📄</div>
-                <h3>在读证明</h3>
-                <p>可信认证平台下载</p>
-            </div>
-            <div class="card" data-id="chengji" onclick="openDetail('chengji')">
-                <div class="card-icon icon-blue">📊</div>
-                <h3>成绩单打印</h3>
-                <p>中英文成绩单获取</p>
-            </div>
-            <div class="card" data-id="cet" onclick="openDetail('cet')">
-                <div class="card-icon icon-blue">🏅</div>
-                <h3>四六级证明</h3>
-                <p>绩点证明/学历学位</p>
-            </div>
-            <div class="card" data-id="caozuo" onclick="openDetail('caozuo')">
-                <div class="card-icon icon-teal">📋</div>
+            <div class="card" data-id="zhiyin" onclick="openDetail('zhiyin')">
+                <div class="card-icon icon-blue">📋</div>
                 <h3>操作指引</h3>
-                <p>详细步骤图文指南</p>
+                <p>可信电子凭证平台通用步骤</p>
+            </div>
+            <div class="card" data-id="lianjie" onclick="openDetail('lianjie')">
+                <div class="card-icon icon-teal">🔗</div>
+                <h3>直达链接</h3>
+                <p>一键进入可信凭证平台</p>
             </div>
         </div>
 
@@ -432,22 +630,17 @@
             <div class="card" data-id="baoxiu" onclick="openDetail('baoxiu')">
                 <div class="card-icon icon-orange">🔧</div>
                 <h3>宿舍报修</h3>
-                <p>灯管/水龙头等维修</p>
+                <p>成理智慧后勤报修</p>
             </div>
             <div class="card" data-id="chongdian" onclick="openDetail('chongdian')">
                 <div class="card-icon icon-orange">💡</div>
                 <h3>电费充值</h3>
-                <p>宿舍购电操作流程</p>
+                <p>学校缴费大厅充值</p>
             </div>
             <div class="card" data-id="xiaoyuanka" onclick="openDetail('xiaoyuanka')">
                 <div class="card-icon icon-orange">💳</div>
                 <h3>校园卡服务</h3>
                 <p>挂失/充值/余额查询</p>
-            </div>
-            <div class="card" data-id="wangluo" onclick="openDetail('wangluo')">
-                <div class="card-icon icon-purple">🌐</div>
-                <h3>校园网办理</h3>
-                <p>开户与充值指南</p>
             </div>
         </div>
 
@@ -466,7 +659,17 @@
             </div>
         </div>
 
-        <!-- 空结果提示 -->
+        <!-- 跳蚤市场 -->
+        <div class="section-title"><span class="dot"></span> 🛒 校园跳蚤市场</div>
+        <div class="card-grid single-col" data-category="跳蚤市场">
+            <div class="card flea-market-card" onclick="openFleaMarket()">
+                <div class="card-icon icon-gold">🔄</div>
+                <h3>二手交易树洞</h3>
+                <p>闲置物品发布 · 全校同学均可参与 · 留下联系方式自由交易</p>
+                <span style="font-size:11px;color:#f39c12;font-weight:600;" id="fleaCount">暂无物品</span>
+            </div>
+        </div>
+
         <div class="no-result" id="noResult">
             <div class="emoji">🔍</div>
             <p>未找到相关内容</p>
@@ -474,12 +677,11 @@
         </div>
     </div>
 
-    <!-- 底部 -->
     <div class="footer">
         成都理工大学 核技术与自动化工程学院 学生会 · 持续更新中
     </div>
 
-    <!-- ==================== 详情弹窗 ==================== -->
+    <!-- ==================== 办事指南详情弹窗 ==================== -->
     <div class="detail-overlay" id="detailOverlay" onclick="closeDetail(event)">
         <div class="detail-panel" id="detailPanel" onclick="event.stopPropagation()">
             <div class="detail-handle"></div>
@@ -488,131 +690,165 @@
         </div>
     </div>
 
+    <!-- ==================== 跳蚤市场弹窗 ==================== -->
+    <div class="detail-overlay" id="fleaOverlay" onclick="closeFleaMarket(event)">
+        <div class="detail-panel" id="fleaPanel" onclick="event.stopPropagation()">
+            <div class="detail-handle"></div>
+
+            <div id="fleaListView">
+                <div class="flea-header">
+                    <h2>🛒 校园跳蚤市场</h2>
+                    <button class="btn-publish" onclick="showPublishForm()">➕ 发布</button>
+                </div>
+                <div class="disclaimer">
+                    ⚠️ 免责声明：本平台仅提供信息发布，交易请自行甄别，谨防诈骗。如产生纠纷，请双方自行协商解决。
+                </div>
+                <div class="flea-search">
+                    <span>🔍</span>
+                    <input type="text" id="fleaSearchInput" placeholder="搜索物品..." oninput="filterFleaItems()">
+                </div>
+                <div id="fleaItemList"></div>
+            </div>
+
+            <div class="publish-form" id="publishForm">
+                <h2 style="margin-bottom:4px;">📝 发布闲置物品</h2>
+                <p style="font-size:12px;color:#999;margin-bottom:8px;">填写物品信息，留下联系方式</p>
+                <div class="disclaimer">
+                    ⚠️ 请如实描述物品情况，交易时注意安全，建议在校内当面交易。
+                </div>
+                <label>物品名称 *</label>
+                <input type="text" id="pubName" placeholder="如：考研数学全书、台灯、收纳箱...">
+                <label>详细描述</label>
+                <textarea id="pubDesc" placeholder="说明物品成色、使用情况、入手渠道等..."></textarea>
+                <label>价格</label>
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <input type="text" id="pubPrice" placeholder="如：15元、免费送、私聊" style="flex:1;">
+                    <label style="display:flex;align-items:center;gap:4px;margin:0;white-space:nowrap;font-size:13px;cursor:pointer;">
+                        <input type="checkbox" id="pubFree" onchange="toggleFree()"> 免费送
+                    </label>
+                </div>
+                <label>联系方式 *</label>
+                <input type="text" id="pubContact" placeholder="微信号/手机号/QQ号">
+                <div class="btn-group">
+                    <button class="btn-cancel" onclick="hidePublishForm()">取消</button>
+                    <button class="btn-submit" onclick="publishItem()">✅ 发布</button>
+                </div>
+            </div>
+
+            <button class="detail-close" onclick="closeFleaMarketDirect()">关 闭</button>
+        </div>
+    </div>
+
     <script>
-        // ==================== 数据定义 ====================
+        // ==================== 办事指南数据 ====================
         const cardData = {
-            zaidu: {
-                title: '在读证明',
+            zhiyin: {
+                title: '操作指引',
                 category: '学业证明',
                 body: `
-              <p>通过<strong>可信认证电子平台</strong>，可在线下载带电子签章的在读证明，与纸质版同等效力。</p>
-              <div class="step"><span class="step-num">①</span> 访问教务处主页：<a href="https://aao.cdut.edu.cn" target="_blank">aao.cdut.edu.cn</a></div>
-              <div class="step"><span class="step-num">②</span> 点击“办事指南” → 《本科生可信电子证明申请操作指引》</div>
-              <div class="step"><span class="step-num">③</span> 按指引登录平台，选择“在读证明”并下载PDF</div>
-              <div class="highlight-box">📌 电子证明含防伪验证码，支持在线真伪核验。</div>
-              <p>直达链接：<br><a href="https://aao.cdut.edu.cn/info/1187/6960.htm" target="_blank">aao.cdut.edu.cn/info/1187/6960.htm</a></p>
-            `
+                  <p style="font-weight:600;">📖 可信电子凭证平台通用操作步骤：</p>
+                  <div class="step"><span class="step-num">①</span> <strong>申请入口（砚湖易办）</strong><br>进入<strong>砚湖易办</strong>系统，访问"常用系统入口"，点击 <strong>【可信电子凭证平台】</strong>按钮，即可跳转到可信电子凭证平台系统。</div>
+                  <div class="step"><span class="step-num">②</span> <strong>申请所需证明</strong><br>点击 <strong>【电子签约】</strong>按钮，选择需要申请的文件类型：<br>· <strong>本科生在读证明</strong><br>· <strong>本科生中文成绩单 / 英文成绩单</strong><br>· <strong>四六级证明 / 绩点证明 / 学历学位证明</strong><br>选择后点击 <strong>【确认发起】</strong>即申请电子版对应文件。</div>
+                  <div class="step"><span class="step-num">③</span> <strong>查看与下载</strong><br>点击 <strong>【查看文件】</strong>在线查阅，或点击 <strong>【下载】</strong>按钮下载PDF文件至本地保存。</div>
+                  <div class="step"><span class="step-num">④</span> <strong>文件核验</strong><br>电子文件接收单位可使用任意拥有"扫一扫"功能的智能设备，扫描文件上的二维码进行真伪核验。</div>
+                  <p style="font-weight:600;margin-top:12px;">⚠️ 注意事项：</p>
+                  <ol style="padding-left:18px;margin:4px 0;font-size:13px;color:#555;line-height:1.8;">
+                    <li>校外学生可以通过<strong>VPN</strong>访问砚湖易办平台</li>
+                    <li>平台仅收录<strong>2014级及以后</strong>毕业生成绩数据，2014级以前学生成绩证明请与学校档案馆联系办理</li>
+                    <li>学历学位证明仅限<strong>已毕业学生</strong>申请</li>
+                    <li>如遇砚湖易办平台无法登录等相关问题，请联系学校<strong>网络与信息化处</strong></li>
+                  </ol>
+                `
             },
-            chengji: {
-                title: '成绩单打印',
+            lianjie: {
+                title: '直达链接',
                 category: '学业证明',
                 body: `
-              <p>可信认证平台支持<strong>中英文成绩单</strong>在线生成与下载。</p>
-              <div class="step"><span class="step-num">①</span> 登录可信认证平台（同在读证明入口）</div>
-              <div class="step"><span class="step-num">②</span> 选择“中文成绩单”或“英文成绩单”</div>
-              <div class="step"><span class="step-num">③</span> 确认信息无误后，下载PDF文件</div>
-              <div class="highlight-box">💡 如需纸质版，可自行打印，电子签章同样有效。</div>
-            `
-            },
-            cet: {
-                title: '四六级证明 / 绩点证明 / 学历学位',
-                category: '学业证明',
-                body: `
-              <p>以下证明均可在<strong>可信认证平台</strong>一站式办理：</p>
-              <ul style="padding-left:18px;margin:8px 0;">
-                <li>四六级成绩证明</li>
-                <li>绩点证明</li>
-                <li>学历学位证明（已毕业学生）</li>
-              </ul>
-              <div class="step"><span class="step-num">①</span> 登录平台，选择对应证明类型</div>
-              <div class="step"><span class="step-num">②</span> 系统自动生成带电子签章的证明文件</div>
-              <div class="highlight-box">📌 所有电子证明均免费办理。</div>
-            `
-            },
-            caozuo: {
-                title: '完整操作指引',
-                category: '学业证明',
-                body: `
-              <p>详细图文步骤请访问教务处主页：</p>
-              <p>🏠 教务处主页：<a href="https://aao.cdut.edu.cn" target="_blank">aao.cdut.edu.cn</a></p>
-              <p>📖 操作指引直达：<a href="https://aao.cdut.edu.cn/info/1187/6960.htm" target="_blank">点击查看详细操作指南</a></p>
-              <div class="highlight-box">💡 推荐使用电脑端操作，体验更佳。手机端也可完成。</div>
-            `
+                  <div class="highlight-box blue" style="text-align:center;padding:20px 14px;">
+                    <p style="font-size:16px;font-weight:700;margin-bottom:8px;">🔗 可信电子凭证平台</p>
+                    <p style="font-size:13px;color:#666;margin-bottom:12px;">可在线申请以下电子证明：<br>在读证明 · 中英文成绩单 · 四六级证明 · 绩点证明 · 学历学位证明</p>
+                    <a href="https://sign.cdut.edu.cn/launch/contract" target="_blank" style="display:inline-block;background:var(--primary);color:#fff;padding:12px 32px;border-radius:24px;text-decoration:none;font-size:15px;font-weight:600;">点击进入平台</a>
+                    <p style="font-size:11px;color:#999;margin-top:10px;">需先登录砚湖易办（统一身份认证）</p>
+                  </div>
+                  <p style="font-weight:600;margin-top:16px;">📱 手机端进入方式：</p>
+                  <div class="step">微信公众号 <strong>"成都理工大学"</strong> → 底部菜单 <strong>"砚湖易办"</strong> → 常用系统入口 → <strong>可信电子凭证平台</strong></div>
+                  <p style="font-weight:600;margin-top:12px;">💻 电脑端进入方式：</p>
+                  <div class="step">浏览器打开 <a href="https://wxc.cdut.edu.cn" target="_blank">wxc.cdut.edu.cn</a> → 登录砚湖易办 → 常用系统入口 → <strong>可信电子凭证平台</strong></div>
+                `
             },
             baoxiu: {
                 title: '宿舍报修',
                 category: '生活服务',
                 body: `
-              <p>宿舍设施损坏（灯管、水龙头、门窗等），通过<strong>砚湖易办</strong>网上报修。</p>
-              <div class="step"><span class="step-num">①</span> 访问砚湖易办：<a href="https://wxc.cdut.edu.cn/index.htm" target="_blank">wxc.cdut.edu.cn</a></div>
-              <div class="step"><span class="step-num">②</span> 登录后搜索“报修”服务</div>
-              <div class="step"><span class="step-num">③</span> 填写报修信息：校区→楼栋→房间号→故障描述→上传照片</div>
-              <div class="step"><span class="step-num">④</span> 提交后等待维修师傅联系上门</div>
-              <div class="highlight-box">📞 紧急报修可联系各宿舍楼值班室。</div>
-            `
+                  <p>宿舍设施损坏（灯管、水龙头、门窗、空调等），通过微信服务号<strong>"成理智慧后勤"</strong>报修。</p>
+                  <p style="font-weight:600;margin-top:12px;">报修步骤：</p>
+                  <div class="step"><span class="step-num">①</span> 打开微信，搜索并关注服务号 <strong>"成理智慧后勤"</strong></div>
+                  <div class="step"><span class="step-num">②</span> 进入公众号，点击底部菜单 <strong>"管理服务"</strong></div>
+                  <div class="step"><span class="step-num">③</span> 在弹出的菜单中选择 <strong>"智能报修"</strong></div>
+                  <div class="step"><span class="step-num">④</span> 进入 <strong>"我要报修"</strong> 界面</div>
+                  <div class="step"><span class="step-num">⑤</span> 填写报修信息：<br>· 选择报修类型（水电类/木工类/空调类等）<br>· 填写详细地址（校区→楼栋→房间号）<br>· 描述故障情况，可上传照片辅助说明</div>
+                  <div class="step"><span class="step-num">⑥</span> 点击提交，等待维修师傅联系上门处理</div>
+                  <div class="highlight-box">📞 紧急报修（如水管爆裂、大面积停电）可联系各宿舍楼值班室或拨打后勤服务热线，处理更快。</div>
+                `
             },
             chongdian: {
                 title: '电费充值',
                 category: '生活服务',
                 body: `
-              <p>宿舍电费通过<strong>砚湖易办</strong>在线充值。</p>
-              <div class="step"><span class="step-num">①</span> 登录砚湖易办</div>
-              <div class="step"><span class="step-num">②</span> 找到“电费充值”服务入口</div>
-              <div class="step"><span class="step-num">③</span> 选择对应校区→楼栋→房间号</div>
-              <div class="step"><span class="step-num">④</span> 输入充值金额，完成支付</div>
-              <div class="highlight-box">⚡ 建议预留余额，避免夜间断电。充值后一般5分钟内到账。</div>
-            `
+                  <p>宿舍电费通过<strong>成都理工大学缴费大厅</strong>在线充值。</p>
+                  <p style="font-weight:600;margin-top:12px;">充值步骤：</p>
+                  <div class="step"><span class="step-num">①</span> 打开浏览器，访问缴费大厅：<br><a href="https://paym.cdut.edu.cn/#/dashboard" target="_blank">https://paym.cdut.edu.cn/#/dashboard</a></div>
+                  <div class="step"><span class="step-num">②</span> 使用<strong>统一身份认证</strong>登录（学号+密码）</div>
+                  <div class="step"><span class="step-num">③</span> 在首页或导航中找到 <strong>"电费充值"</strong> 入口</div>
+                  <div class="step"><span class="step-num">④</span> 确认或选择对应 <strong>校区→楼栋→房间号</strong></div>
+                  <div class="step"><span class="step-num">⑤</span> 输入充值金额，选择支付方式（微信/支付宝/银行卡）</div>
+                  <div class="step"><span class="step-num">⑥</span> 完成支付，充值金额一般<strong>5分钟内</strong>到账</div>
+                  <div class="highlight-box">⚡ 建议在电费余额较低时及时充值，避免夜间断电。如充值后长时间未到账，可联系后勤服务热线处理。</div>
+                `
             },
             xiaoyuanka: {
                 title: '校园卡服务',
                 category: '生活服务',
                 body: `
-              <p>校园卡挂失、余额查询可在砚湖易办办理；充值推荐使用<strong>支付宝</strong>或<strong>完美校园APP</strong>。</p>
-              <div class="step"><span class="step-num">①</span> 挂失：砚湖易办 → 搜索“校园卡挂失”</div>
-              <div class="step"><span class="step-num">②</span> 充值：支付宝搜索“完美校园” → 绑定校园卡 → 充值</div>
-              <div class="step"><span class="step-num">③</span> 余额查询：砚湖易办或完美校园APP均可查询</div>
-              <div class="highlight-box">🆘 如捡到他人校园卡，请交至各食堂服务台或保卫处。</div>
-            `
-            },
-            wangluo: {
-                title: '校园网办理',
-                category: '生活服务',
-                body: `
-              <p>校园网开户与充值通过<strong>砚湖易办</strong>办理。</p>
-              <div class="step"><span class="step-num">①</span> 登录砚湖易办</div>
-              <div class="step"><span class="step-num">②</span> 搜索“校园网”相关服务</div>
-              <div class="step"><span class="step-num">③</span> 按指引完成开户/充值</div>
-              <div class="highlight-box">📶 校园网覆盖教学区、图书馆及大部分宿舍区域。</div>
-            `
+                  <p>校园卡挂失、充值、余额查询、流水查询等服务，通过微信小程序<strong>"成理校园卡"</strong>办理。</p>
+                  <p style="font-weight:600;margin-top:12px;">操作步骤：</p>
+                  <div class="step"><span class="step-num">①</span> 打开微信，搜索小程序 <strong>"成理校园卡"</strong></div>
+                  <div class="step"><span class="step-num">②</span> 进入小程序后，点击底部 <strong>"个人中心"</strong></div>
+                  <div class="step"><span class="step-num">③</span> 在个人中心可办理以下服务：<br>· <strong>校园卡挂失</strong>：点击挂失按钮立即生效<br>· <strong>校园卡充值</strong>：选择金额，微信支付即可<br>· <strong>余额查询</strong>：实时显示当前卡内余额<br>· <strong>流水查询</strong>：查看消费记录与充值记录</div>
+                  <div class="highlight-box">🆘 捡到他人校园卡，请交至各食堂服务台或校园卡服务中心。如需补办新卡，请携带身份证到校园卡服务中心办理。</div>
+                `
             },
             bangka: {
                 title: '银行卡绑定',
                 category: '财务与医保',
                 body: `
-              <p>奖助学金、勤工助学工资均通过绑定的<strong>中国建设银行卡</strong>发放。</p>
-              <div class="step"><span class="step-num">①</span> 登录砚湖易办网上办事大厅</div>
-              <div class="step"><span class="step-num">②</span> 搜索“银行卡信息变更”或“财务信息维护”</div>
-              <div class="step"><span class="step-num">③</span> 填写本人名下状态正常的建行卡号并提交</div>
-              <div class="highlight-box">⚠️ 若建行卡丢失，请先去<strong>任意建行网点</strong>补办，再回系统更新卡号。如有疑问可咨询财务处。</div>
-            `
+                  <p>奖助学金、勤工助学工资均通过绑定的<strong>中国建设银行卡</strong>发放。如需绑定或更换银行卡，按以下步骤操作。</p>
+                  <p style="font-weight:600;margin-top:12px;">绑卡步骤：</p>
+                  <div class="step"><span class="step-num">①</span> 打开微信，搜索并关注公众号 <strong>"成都理工大学财务处"</strong></div>
+                  <div class="step"><span class="step-num">②</span> 进入公众号，点击底部菜单 <strong>"教工服务"</strong></div>
+                  <div class="step"><span class="step-num">③</span> 选择 <strong>"智能报销平台"</strong></div>
+                  <div class="step"><span class="step-num">④</span> 进入后找到 <strong>"个人酬金卡号维护"</strong></div>
+                  <div class="step"><span class="step-num">⑤</span> 填写本人名下状态正常的<strong>中国建设银行卡号</strong>，确认提交</div>
+                  <div class="highlight-box">⚠️ 若建行卡丢失，请先去<strong>任意建行网点</strong>补办，再按上述步骤更新卡号。如遇问题可咨询学校财务处。</div>
+                `
             },
             yibao: {
                 title: '学生医保购买',
                 category: '财务与医保',
                 body: `
-              <p>如学校未统一代扣，可通过<strong>成都税务公众号</strong>自行购买。</p>
-              <div class="step"><span class="step-num">①</span> 微信搜索并关注公众号 <strong>“成都税务”</strong></div>
-              <div class="step"><span class="step-num">②</span> 点击底部菜单：<strong>我要办事</strong> → <strong>社保缴费</strong></div>
-              <div class="step"><span class="step-num">③</span> 选择缴费渠道（推荐<strong>成都农商银行</strong>，支持无卡支付）</div>
-              <div class="step"><span class="step-num">④</span> 输入个人信息，确认缴费年度为<strong>2026年</strong></div>
-              <div class="step"><span class="step-num">⑤</span> 选择缴费档次，向<strong>成华区税务局</strong>缴纳：<br>· 基本档：<strong>400元/年</strong><br>· 较高档：<strong>448元/年</strong></div>
-              <div class="highlight-box">
-                ⏰ <strong>生效时间：</strong>缴费之日起<strong>90天后生效</strong><br>
-                📅 <strong>有效期至：</strong>2026年12月31日<br>
-                ⚠️ <strong>务必提前购买！</strong>留足90天等待期，避免急需时无法使用。
-              </div>
-              <p style="font-size:12px;color:#999;">如已在老家参保，无需重复购买，但需办理异地就医备案才能在成都直接结算。</p>
-            `
+                  <p>如学校未统一代扣，可通过<strong>成都税务公众号</strong>自行购买。</p>
+                  <div class="step"><span class="step-num">①</span> 微信搜索并关注公众号 <strong>"成都税务"</strong></div>
+                  <div class="step"><span class="step-num">②</span> 点击底部菜单：<strong>我要办事</strong> → <strong>社保缴费</strong></div>
+                  <div class="step"><span class="step-num">③</span> 选择缴费渠道（推荐<strong>成都农商银行</strong>，支持无卡支付）</div>
+                  <div class="step"><span class="step-num">④</span> 输入个人信息，确认缴费年度为<strong>2026年</strong></div>
+                  <div class="step"><span class="step-num">⑤</span> 选择缴费档次，向<strong>成华区税务局</strong>缴纳：<br>· 基本档：<strong>400元/年</strong><br>· 较高档：<strong>448元/年</strong></div>
+                  <div class="highlight-box">
+                    ⏰ <strong>生效时间：</strong>缴费之日起<strong>90天后生效</strong><br>
+                    📅 <strong>有效期至：</strong>2026年12月31日<br>
+                    ⚠️ <strong>务必提前购买！</strong>留足90天等待期，避免急需时无法使用。
+                  </div>
+                  <p style="font-size:12px;color:#999;">如已在老家参保，无需重复购买，但需办理异地就医备案才能在成都直接结算。</p>
+                `
             }
         };
 
@@ -620,26 +856,19 @@
         function openDetail(id) {
             const data = cardData[id];
             if (!data) return;
-
             const detailContent = document.getElementById('detailContent');
             detailContent.innerHTML = `
             <h2>${data.title}</h2>
             <div class="detail-category">${data.category}</div>
             <div class="detail-body">${data.body}</div>
           `;
-
-            const overlay = document.getElementById('detailOverlay');
-            overlay.classList.add('show');
+            document.getElementById('detailOverlay').classList.add('show');
             document.body.style.overflow = 'hidden';
-
-            // 滚动到顶部
             document.getElementById('detailPanel').scrollTop = 0;
         }
 
-        // ==================== 关闭弹窗 ====================
         function closeDetailDirect() {
-            const overlay = document.getElementById('detailOverlay');
-            overlay.classList.remove('show');
+            document.getElementById('detailOverlay').classList.remove('show');
             document.body.style.overflow = '';
         }
 
@@ -652,89 +881,89 @@
         // ==================== 搜索功能 ====================
         const searchInput = document.getElementById('searchInput');
         const searchClear = document.getElementById('searchClear');
-        const cardContainer = document.getElementById('cardContainer');
         const noResult = document.getElementById('noResult');
 
-        // 搜索关键词映射
         const keywordMap = {
-            '在读证明': 'zaidu',
-            '证明': ['zaidu', 'chengji', 'cet', 'caozuo'],
-            '成绩单': 'chengji',
-            '中英文': 'chengji',
-            '四六级': 'cet',
-            '六级': 'cet',
-            '四级': 'cet',
-            '绩点': 'cet',
-            '学历': 'cet',
-            '学位': 'cet',
-            '操作指引': 'caozuo',
-            '指引': 'caozuo',
-            '可信认证': ['zaidu', 'chengji', 'cet', 'caozuo'],
-            '打印': ['zaidu', 'chengji', 'cet'],
+            '在读证明': 'zhiyin',
+            '证明': 'zhiyin',
+            '成绩单': 'zhiyin',
+            '中英文': 'zhiyin',
+            '四六级': 'zhiyin',
+            '绩点': 'zhiyin',
+            '学历': 'zhiyin',
+            '学位': 'zhiyin',
+            '操作指引': 'zhiyin',
+            '指引': 'zhiyin',
+            '打印': 'zhiyin',
+            '可信电子凭证': ['zhiyin', 'lianjie'],
+            '可信认证': ['zhiyin', 'lianjie'],
+            '砚湖易办': ['zhiyin', 'lianjie', 'bangka'],
+            '直达': 'lianjie',
+            '链接': 'lianjie',
+            '平台': 'lianjie',
             '报修': 'baoxiu',
             '维修': 'baoxiu',
             '修理': 'baoxiu',
             '灯管': 'baoxiu',
             '水龙头': 'baoxiu',
+            '成理智慧后勤': 'baoxiu',
+            '后勤': 'baoxiu',
             '宿舍': ['baoxiu', 'chongdian'],
             '充电': 'chongdian',
             '电费': 'chongdian',
             '购电': 'chongdian',
+            '缴费大厅': 'chongdian',
             '校园卡': 'xiaoyuanka',
             '一卡通': 'xiaoyuanka',
             '挂失': 'xiaoyuanka',
-            '完美校园': 'xiaoyuanka',
-            '校园网': 'wangluo',
-            '网络': 'wangluo',
-            'wifi': 'wangluo',
+            '成理校园卡': 'xiaoyuanka',
+            '流水': 'xiaoyuanka',
             '银行卡': 'bangka',
             '绑定': 'bangka',
             '建行': 'bangka',
             '奖助学金': 'bangka',
-            '财务': 'bangka',
+            '财务处': 'bangka',
+            '酬金卡': 'bangka',
             '医保': 'yibao',
             '社保': 'yibao',
             '成都税务': 'yibao',
             '缴费': 'yibao',
-            '医疗': 'yibao',
-            '保险': 'yibao',
             '400': 'yibao',
             '448': 'yibao',
             '成华区': 'yibao',
+            '二手': 'flea',
+            '闲置': 'flea',
+            '跳蚤': 'flea',
+            '出售': 'flea',
+            '转让': 'flea',
+            '交易': 'flea',
         };
 
         searchInput.addEventListener('input', function() {
             const query = this.value.trim().toLowerCase();
-
-            // 显示/隐藏清除按钮
             if (query.length > 0) {
                 searchClear.classList.add('visible');
             } else {
                 searchClear.classList.remove('visible');
             }
-
-            // 如果搜索框为空，显示全部
             if (query === '') {
                 showAllCards();
                 noResult.style.display = 'none';
                 return;
             }
 
-            // 查找匹配的卡片ID
             let matchedIds = new Set();
-
-            // 先精确匹配关键词映射
             for (const [keyword, ids] of Object.entries(keywordMap)) {
                 if (keyword.includes(query) || query.includes(keyword)) {
-                    if (Array.isArray(ids)) {
+                    if (ids === 'flea') {
+                        matchedIds.add('flea-market-special');
+                    } else if (Array.isArray(ids)) {
                         ids.forEach(id => matchedIds.add(id));
                     } else {
                         matchedIds.add(ids);
                     }
                 }
             }
-
-            // 再模糊搜索卡片标题和内容
             for (const [id, data] of Object.entries(cardData)) {
                 if (data.title.toLowerCase().includes(query) ||
                     data.body.toLowerCase().includes(query) ||
@@ -742,59 +971,51 @@
                     matchedIds.add(id);
                 }
             }
+            if (query.includes('二手') || query.includes('闲置') || query.includes('跳蚤') || query.includes('出售') ||
+                query.includes('交易')) {
+                matchedIds.add('flea-market-special');
+            }
 
-            // 更新显示
             if (matchedIds.size === 0) {
                 hideAllCards();
                 noResult.style.display = 'block';
             } else {
                 noResult.style.display = 'none';
-                const allCards = document.querySelectorAll('.card');
-                allCards.forEach(card => {
+                document.querySelectorAll('.card').forEach(card => {
                     const cardId = card.getAttribute('data-id');
-                    if (matchedIds.has(cardId)) {
+                    if (matchedIds.has(cardId) || (matchedIds.has('flea-market-special') && card.classList
+                            .contains('flea-market-card'))) {
                         card.style.display = '';
-                    } else {
+                    } else if (card.classList.contains('flea-market-card') && !matchedIds.has(
+                            'flea-market-special')) {
+                        card.style.display = 'none';
+                    } else if (cardId && !matchedIds.has(cardId)) {
                         card.style.display = 'none';
                     }
                 });
-                // 隐藏空的分类标题
                 updateSectionVisibility();
             }
         });
 
         function showAllCards() {
-            const allCards = document.querySelectorAll('.card');
-            allCards.forEach(card => {
-                card.style.display = '';
-            });
-            // 显示所有分类标题
-            const sections = document.querySelectorAll('.section-title');
-            sections.forEach(s => s.style.display = '');
-            const grids = document.querySelectorAll('.card-grid');
-            grids.forEach(g => g.style.display = '');
+            document.querySelectorAll('.card').forEach(c => c.style.display = '');
+            document.querySelectorAll('.section-title').forEach(s => s.style.display = '');
+            document.querySelectorAll('.card-grid').forEach(g => g.style.display = '');
         }
 
         function hideAllCards() {
-            const allCards = document.querySelectorAll('.card');
-            allCards.forEach(card => {
-                card.style.display = 'none';
-            });
+            document.querySelectorAll('.card').forEach(c => c.style.display = 'none');
         }
 
         function updateSectionVisibility() {
-            const grids = document.querySelectorAll('.card-grid');
-            grids.forEach(grid => {
-                const visibleCards = grid.querySelectorAll('.card[style*="display:"]');
-                const allHidden = Array.from(grid.querySelectorAll('.card')).every(
-                    card => card.style.display === 'none'
-                );
-                // 找到这个grid前面的section-title
-                const prevSibling = grid.previousElementSibling;
-                if (allHidden && prevSibling && prevSibling.classList.contains('section-title')) {
-                    prevSibling.style.display = 'none';
-                } else if (prevSibling && prevSibling.classList.contains('section-title')) {
-                    prevSibling.style.display = '';
+            document.querySelectorAll('.card-grid').forEach(grid => {
+                const allHidden = Array.from(grid.querySelectorAll('.card')).every(c => c.style.display ===
+                    'none');
+                const prev = grid.previousElementSibling;
+                if (allHidden && prev && prev.classList.contains('section-title')) {
+                    prev.style.display = 'none';
+                } else if (prev && prev.classList.contains('section-title')) {
+                    prev.style.display = '';
                 }
             });
         }
@@ -807,12 +1028,167 @@
             searchInput.focus();
         }
 
-        // ==================== 键盘事件（关闭弹窗） ====================
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeDetailDirect();
+        // ==================== 跳蚤市场 ====================
+        const STORAGE_KEY = 'cdut_flea_items';
+        let fleaItems = [];
+
+        function loadFleaItems() {
+            try {
+                fleaItems = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+            } catch (e) {
+                fleaItems = [];
             }
+            updateFleaCount();
+        }
+
+        function saveFleaItems() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(fleaItems));
+            updateFleaCount();
+        }
+
+        function updateFleaCount() {
+            const el = document.getElementById('fleaCount');
+            if (el) el.textContent = fleaItems.length === 0 ? '暂无物品' : `共 ${fleaItems.length} 件物品`;
+        }
+
+        function openFleaMarket() {
+            document.getElementById('fleaOverlay').classList.add('show');
+            document.body.style.overflow = 'hidden';
+            document.getElementById('fleaPanel').scrollTop = 0;
+            hidePublishForm(true);
+            renderFleaItems();
+        }
+
+        function closeFleaMarketDirect() {
+            document.getElementById('fleaOverlay').classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        function closeFleaMarket(event) {
+            if (event.target === document.getElementById('fleaOverlay')) closeFleaMarketDirect();
+        }
+
+        function showPublishForm() {
+            document.getElementById('fleaListView').style.display = 'none';
+            document.getElementById('publishForm').classList.add('active');
+            ['pubName', 'pubDesc', 'pubPrice', 'pubContact'].forEach(id => document.getElementById(id).value = '');
+            document.getElementById('pubFree').checked = false;
+            document.getElementById('pubPrice').disabled = false;
+        }
+
+        function hidePublishForm(silent) {
+            document.getElementById('fleaListView').style.display = '';
+            document.getElementById('publishForm').classList.remove('active');
+            if (!silent) renderFleaItems();
+        }
+
+        function toggleFree() {
+            const ck = document.getElementById('pubFree');
+            const pi = document.getElementById('pubPrice');
+            if (ck.checked) { pi.value = '免费送';
+                pi.disabled = true; } else { pi.value = '';
+                pi.disabled = false; }
+        }
+
+        function publishItem() {
+            const name = document.getElementById('pubName').value.trim();
+            const desc = document.getElementById('pubDesc').value.trim();
+            const freeCheck = document.getElementById('pubFree');
+            let price = document.getElementById('pubPrice').value.trim();
+            const contact = document.getElementById('pubContact').value.trim();
+
+            if (!name) return showToast('请输入物品名称');
+            if (!contact) return showToast('请留下联系方式');
+            if (!freeCheck.checked && !price) return showToast('请输入价格或勾选"免费送"');
+            if (freeCheck.checked) price = '免费送';
+
+            fleaItems.unshift({
+                id: Date.now().toString(),
+                name,
+                desc,
+                price,
+                contact,
+                time: new Date().toLocaleString('zh-CN', { month: 'numeric', day: 'numeric', hour: '2-digit',
+                    minute: '2-digit' }),
+                isFree: freeCheck.checked || price === '免费送'
+            });
+            saveFleaItems();
+            hidePublishForm();
+            renderFleaItems();
+            showToast('✅ 发布成功！');
+        }
+
+        function deleteFleaItem(id) {
+            if (confirm('确定要删除这条信息吗？')) {
+                fleaItems = fleaItems.filter(i => i.id !== id);
+                saveFleaItems();
+                renderFleaItems();
+                showToast('已删除');
+            }
+        }
+
+        function contactSeller(contact) {
+            if (/^1[3-9]\d{9}$/.test(contact)) {
+                if (confirm(`拨打 ${contact}？`)) window.location.href = `tel:${contact}`;
+            } else {
+                navigator.clipboard.writeText(contact).then(() => showToast(`📋 已复制：${contact}`)).catch(() => showToast(
+                    `📞 联系方式：${contact}`));
+            }
+        }
+
+        function renderFleaItems(filterText) {
+            const listEl = document.getElementById('fleaItemList');
+            let items = fleaItems;
+            if (filterText) {
+                const ft = filterText.toLowerCase();
+                items = items.filter(i => i.name.toLowerCase().includes(ft) || i.desc.toLowerCase().includes(ft) || i
+                    .price.toLowerCase().includes(ft));
+            }
+            if (items.length === 0) {
+                listEl.innerHTML = `
+              <div class="flea-empty">
+                <span class="emoji">📭</span>
+                <p>${filterText ? '没有匹配的物品' : '还没有人发布物品'}</p>
+                <p style="font-size:12px;color:#ccc;">点击右上角"发布"来发布第一件闲置吧~</p>
+              </div>`;
+                return;
+            }
+            listEl.innerHTML = items.map(item => `
+            <div class="flea-item">
+              <div class="flea-item-header">
+                <span class="flea-item-name">${escapeHtml(item.name)}</span>
+                <span class="flea-item-price ${item.isFree ? 'free' : ''}">${escapeHtml(item.price)}</span>
+              </div>
+              ${item.desc ? `<div class="flea-item-desc">${escapeHtml(item.desc)}</div>` : ''}
+              <span class="flea-item-contact" onclick="contactSeller('${escapeAttr(item.contact)}')">📞 ${escapeHtml(item.contact)}</span>
+              <span class="flea-item-delete" onclick="deleteFleaItem('${item.id}')">删除</span>
+              <span class="flea-item-time">🕐 ${item.time}</span>
+            </div>`).join('');
+        }
+
+        function filterFleaItems() {
+            renderFleaItems(document.getElementById('fleaSearchInput').value.trim());
+        }
+
+        function escapeHtml(str) { const d = document.createElement('div');
+            d.textContent = str; return d.innerHTML; }
+
+        function escapeAttr(str) { return str.replace(/'/g, "\\'").replace(/"/g, '&quot;'); }
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.classList.add('show');
+            clearTimeout(t._timeout);
+            t._timeout = setTimeout(() => t.classList.remove('show'), 1500);
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') { closeDetailDirect();
+                closeFleaMarketDirect(); }
         });
+
+        loadFleaItems();
     </script>
 </body>
 </html>
