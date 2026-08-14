@@ -376,9 +376,9 @@
     <!-- ==================== 主内容区 ==================== -->
     <div class="container" id="cardContainer">
 
-        <!-- 学业证明 -->
-        <div class="section-title"><span class="dot"></span> 学业证明</div>
-        <div class="card-grid" data-category="学业证明">
+        <!-- 教学服务 -->
+        <div class="section-title"><span class="dot"></span> 教学服务</div>
+        <div class="card-grid" data-category="教学服务">
             <div class="card" data-id="zhiyin" onclick="openDetail('zhiyin')">
                 <div class="card-icon icon-blue">📋</div>
                 <h3>操作指引</h3>
@@ -388,6 +388,16 @@
                 <div class="card-icon icon-teal">🔗</div>
                 <h3>直达链接</h3>
                 <p>一键进入可信凭证平台</p>
+            </div>
+            <div class="card" data-id="huankao" onclick="openDetail('huankao')">
+                <div class="card-icon icon-blue">📝</div>
+                <h3>缓考申请</h3>
+                <p>砚湖易办在线办理</p>
+            </div>
+            <div class="card" data-id="chajuan" onclick="openDetail('chajuan')">
+                <div class="card-icon icon-teal">🔍</div>
+                <h3>查卷申请</h3>
+                <p>砚湖易办在线办理</p>
             </div>
         </div>
 
@@ -451,7 +461,7 @@
         const cardData = {
             zhiyin: {
                 title: '操作指引',
-                category: '学业证明',
+                category: '教学服务',
                 body: `
                   <p style="font-weight:600;">📖 可信电子凭证平台通用操作步骤：</p>
                   <div class="step"><span class="step-num">①</span> <strong>申请入口（砚湖易办）</strong><br>进入<strong>砚湖易办</strong>系统，访问"常用系统入口"，点击 <strong>【可信电子凭证平台】</strong>按钮，即可跳转到可信电子凭证平台系统。</div>
@@ -469,7 +479,7 @@
             },
             lianjie: {
                 title: '直达链接',
-                category: '学业证明',
+                category: '教学服务',
                 body: `
                   <div class="highlight-box blue" style="text-align:center;padding:20px 14px;">
                     <p style="font-size:16px;font-weight:700;margin-bottom:8px;">🔗 可信电子凭证平台</p>
@@ -480,7 +490,35 @@
                   <p style="font-weight:600;margin-top:16px;">📱 手机端进入方式：</p>
                   <div class="step">微信公众号 <strong>"成都理工大学"</strong> → 底部菜单 <strong>"砚湖易办"</strong> → 常用系统入口 → <strong>可信电子凭证平台</strong></div>
                   <p style="font-weight:600;margin-top:12px;">💻 电脑端进入方式：</p>
-                  <div class="step">浏览器打开 <a href="https://wxc.cdut.edu.cn" target="_blank">wxc.cdut.edu.cn</a> → 登录砚湖易办 → 常用系统入口 → <strong>可信电子凭证平台</strong></div>
+                  <div class="step">浏览器打开 <a href="https://bsdt.cdut.edu.cn/EIP/nonlogin/user/index.htm" target="_blank">砚湖易办</a> → 登录 → 常用系统入口 → <strong>可信电子凭证平台</strong></div>
+                `
+            },
+            huankao: {
+                title: '缓考申请',
+                category: '教学服务',
+                body: `
+                  <p>通过<strong>砚湖易办</strong>进入教务管理系统，在线提交缓考申请。</p>
+                  <p style="font-weight:600;margin-top:12px;">申请步骤：</p>
+                  <div class="step"><span class="step-num">①</span> 打开<strong>砚湖易办</strong><br>· 手机端：微信公众号"成都理工大学" → 砚湖易办<br>· 电脑端：<a href="https://bsdt.cdut.edu.cn/EIP/nonlogin/user/index.htm" target="_blank">砚湖易办</a></div>
+                  <div class="step"><span class="step-num">②</span> 在常用系统入口中找到并进入 <strong>"教务管理系统"</strong></div>
+                  <div class="step"><span class="step-num">③</span> 点击菜单中的 <strong>"考试管理"</strong></div>
+                  <div class="step"><span class="step-num">④</span> 点击 <strong>"缓考申请"</strong></div>
+                  <div class="step"><span class="step-num">⑤</span> 进入申请缓考页面，查询可申请缓考的科目，按提示提交申请</div>
+                  <div class="highlight-box">📌 缓考通常需提供相关证明材料（如医院诊断证明等），具体以教务处通知为准。</div>
+                `
+            },
+            chajuan: {
+                title: '查卷申请',
+                category: '教学服务',
+                body: `
+                  <p>对考试成绩有疑问，可通过<strong>砚湖易办</strong>进入教务管理系统提交查卷申请。</p>
+                  <p style="font-weight:600;margin-top:12px;">申请步骤：</p>
+                  <div class="step"><span class="step-num">①</span> 打开<strong>砚湖易办</strong><br>· 手机端：微信公众号"成都理工大学" → 砚湖易办<br>· 电脑端：<a href="https://bsdt.cdut.edu.cn/EIP/nonlogin/user/index.htm" target="_blank">砚湖易办</a></div>
+                  <div class="step"><span class="step-num">②</span> 在常用系统入口中找到并进入 <strong>"教务管理系统"</strong></div>
+                  <div class="step"><span class="step-num">③</span> 点击菜单中的 <strong>"考试管理"</strong></div>
+                  <div class="step"><span class="step-num">④</span> 点击 <strong>"考试查卷"</strong></div>
+                  <div class="step"><span class="step-num">⑤</span> 进入查卷申请页面，选择需要查卷的科目，按提示提交申请</div>
+                  <div class="highlight-box">📌 查卷申请一般在成绩公布后规定时间内开放，逾期不再受理，请留意教务处通知。</div>
                 `
             },
             baoxiu: {
@@ -604,10 +642,15 @@
             '打印': 'zhiyin',
             '可信电子凭证': ['zhiyin', 'lianjie'],
             '可信认证': ['zhiyin', 'lianjie'],
-            '砚湖易办': ['zhiyin', 'lianjie'],
+            '砚湖易办': ['zhiyin', 'lianjie', 'huankao', 'chajuan'],
             '直达': 'lianjie',
             '链接': 'lianjie',
             '平台': 'lianjie',
+            '缓考': 'huankao',
+            '查卷': 'chajuan',
+            '查分': 'chajuan',
+            '考试管理': ['huankao', 'chajuan'],
+            '教务系统': ['huankao', 'chajuan'],
             '报修': 'baoxiu',
             '维修': 'baoxiu',
             '修理': 'baoxiu',
