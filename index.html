@@ -307,6 +307,20 @@
             text-decoration: underline;
             word-break: break-all;
         }
+        .enterprise-qr {
+            display: block;
+            width: min(100%, 260px);
+            height: auto;
+            margin: 14px auto 8px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        .qr-caption {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin-bottom: 14px;
+        }
         .detail-close {
             display: block;
             width: 100%;
@@ -381,7 +395,7 @@
         <div class="card-grid" data-category="教学服务">
             <div class="card" data-id="zhiyin" onclick="openDetail('zhiyin')">
                 <div class="card-icon icon-blue">📋</div>
-                <h3>操作指引</h3>
+                <h3>学业证明</h3>
                 <p>可信电子凭证平台通用步骤</p>
             </div>
             <div class="card" data-id="lianjie" onclick="openDetail('lianjie')">
@@ -398,6 +412,11 @@
                 <div class="card-icon icon-teal">🔍</div>
                 <h3>查卷申请</h3>
                 <p>砚湖易办在线办理</p>
+            </div>
+            <div class="card" data-id="qiyeweixin" onclick="openDetail('qiyeweixin')">
+                <div class="card-icon icon-blue">💬</div>
+                <h3>企业微信绑定（解绑）</h3>
+                <p>扫码绑定或解绑企业微信</p>
             </div>
         </div>
 
@@ -460,7 +479,7 @@
         // ==================== 办事指南数据 ====================
         const cardData = {
             zhiyin: {
-                title: '操作指引',
+                title: '学业证明',
                 category: '教学服务',
                 body: `
                   <p style="font-weight:600;">📖 可信电子凭证平台通用操作步骤：</p>
@@ -519,6 +538,21 @@
                   <div class="step"><span class="step-num">④</span> 点击 <strong>"考试查卷"</strong></div>
                   <div class="step"><span class="step-num">⑤</span> 进入查卷申请页面，选择需要查卷的科目，按提示提交申请</div>
                   <div class="highlight-box">📌 查卷申请一般在成绩公布后规定时间内开放，逾期不再受理，请留意教务处通知。</div>
+                `
+            },
+            qiyeweixin: {
+                title: '企业微信绑定（解绑）',
+                category: '教学服务',
+                body: `
+                  <p>使用下方二维码进入企业微信绑定服务，可按页面提示完成绑定或解绑操作。</p>
+                  <img class="enterprise-qr" src="assets/enterprise-wechat-qr.png" alt="企业微信绑定（解绑）二维码">
+                  <p class="qr-caption">请使用微信或企业微信扫描二维码</p>
+                  <div class="highlight-box blue" style="text-align:center;">
+                    <a href="https://wxc.cdut.edu.cn/info/1013/1251.htm" target="_blank" rel="noopener noreferrer" style="display:inline-block;background:var(--primary);color:#fff;padding:12px 22px;border-radius:24px;text-decoration:none;font-size:15px;font-weight:600;">查看绑定（解绑）步骤</a>
+                  </div>
+                  <div class="step"><span class="step-num">①</span> 扫描二维码进入企业微信服务页面</div>
+                  <div class="step"><span class="step-num">②</span> 按页面提示完成账号绑定；如需解绑，进入同一页面选择解绑操作</div>
+                  <div class="highlight-box">📌 具体操作要求和注意事项请以学校信息化部门发布的步骤说明为准。</div>
                 `
             },
             baoxiu: {
@@ -637,6 +671,7 @@
             '绩点': 'zhiyin',
             '学历': 'zhiyin',
             '学位': 'zhiyin',
+            '学业证明': 'zhiyin',
             '操作指引': 'zhiyin',
             '指引': 'zhiyin',
             '打印': 'zhiyin',
@@ -651,6 +686,10 @@
             '查分': 'chajuan',
             '考试管理': ['huankao', 'chajuan'],
             '教务系统': ['huankao', 'chajuan'],
+            '企业微信': 'qiyeweixin',
+            '绑定企业微信': 'qiyeweixin',
+            '解绑': 'qiyeweixin',
+            '扫码绑定': 'qiyeweixin',
             '报修': 'baoxiu',
             '维修': 'baoxiu',
             '修理': 'baoxiu',
